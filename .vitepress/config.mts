@@ -82,9 +82,9 @@ export default defineConfig({
           text: 'API Reference',
           items: [
             { text: 'Core Package', link: '/api/core' },
-            { text: 'Services', link: '/api/services' },
+            /*{ text: 'Services', link: '/api/services' },
             { text: 'Utilities', link: '/api/utilities' },
-            { text: 'Types', link: '/api/types' },
+            { text: 'Types', link: '/api/types' },*/
           ]
         }
       ],
@@ -94,8 +94,8 @@ export default defineConfig({
           items: [
             { text: 'CLI', link: '/tools/cli' },
             { text: 'GitHub Action', link: '/tools/github-action' },
-            { text: 'Plugins', link: '/tools/plugins' },
-            { text: 'Gradle Plugin', link: '/tools/gradle-plugin' },
+            /*{ text: 'Plugins', link: '/tools/plugins' },
+            { text: 'Gradle Plugin', link: '/tools/gradle-plugin' },*/
           ]
         }
       ],
