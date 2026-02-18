@@ -1,0 +1,74 @@
+:root {
+  --vp-c-brand: #3c3c3d;
+  --vp-c-brand-light: #626262;
+  --vp-c-brand-lighter: #8b8b8b;
+  --vp-c-brand-lightest: #b3b3b3;
+  --vp-c-brand-dark: #1a1a1a;
+  --vp-c-brand-darker: #0f0f0f;
+
+  --vp-c-green: #10b981;
+  --vp-c-green-light: #34d399;
+  --vp-c-green-lighter: #6ee7b7;
+
+  --vp-c-blue: #3b82f6;
+  --vp-c-blue-light: #60a5fa;
+  --vp-c-blue-lighter: #93c5fd;
+
+  --vp-c-yellow: #f59e0b;
+  --vp-c-yellow-light: #fbbf24;
+  --vp-c-yellow-lighter: #fcd34d;
+
+  --vp-c-red: #ef4444;
+  --vp-c-red-light: #f87171;
+  --vp-c-red-lighter: #fca5a5;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vp-c-bg-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-brand);
+}
+
+/* Code block enhancements */
+.vp-code {
+  font-variant-ligatures: common-ligatures;
+}
+
+/* Custom callout styling */
+.custom-block {
+  border-left: 4px solid var(--vp-c-brand);
+}
+
+.custom-block.info {
+  border-left-color: var(--vp-c-blue);
+}
+
+.custom-block.tip {
+  border-left-color: var(--vp-c-green);
+}
+
+.custom-block.warning {
+  border-left-color: var(--vp-c-yellow);
+}
+
+.custom-block.danger {
+  border-left-color: var(--vp-c-red);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s ease;
+}
