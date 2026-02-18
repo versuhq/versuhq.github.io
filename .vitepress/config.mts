@@ -32,13 +32,13 @@ export default defineConfig({
         ]
       },
       { text: 'Examples', link: '/examples/basic-setup' },
-      {
+      /*{
         text: 'Resources',
         items: [
           { text: 'GitHub', link: 'https://github.com/versuhq/versu' },
           { text: 'NPM', link: 'https://www.npmjs.com/package/@versu/core' },
         ]
-      }
+      }*/
     ],
 
     sidebar: {
@@ -103,6 +103,7 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/versuhq/versu' },
+      { icon: 'npm', link: 'https://www.npmjs.com/package/@versu/core' },
     ],
 
     footer: {
