@@ -9,6 +9,7 @@ export default defineConfig({
   lang: 'en-US',
   
   head: [
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'theme-color', content: '#3c3c3d' }],
     ['meta', { name: 'og:type', content: 'website' }],
     ['meta', { name: 'og:locale', content: 'en' }],
@@ -17,7 +18,7 @@ export default defineConfig({
   lastUpdated: true,
 
   themeConfig: {
-    logo: '/versu-logo.svg',
+    logo: '/versu-logo.png',
     
     nav: [
       { text: 'Home', link: '/' },
