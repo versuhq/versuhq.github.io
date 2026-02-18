@@ -40,6 +40,7 @@ jobs:
           cache: npm
       
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v4
       
       - name: Install dependencies
@@ -47,6 +48,8 @@ jobs:
       
       - name: Build with VitePress
         run: npm run docs:build
+        env:
+          BASE_URL: ${{ steps.pages.outputs.base_path }}
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
