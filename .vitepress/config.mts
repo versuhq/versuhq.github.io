@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitepress'
 
+const base = process.env.BASE_URL ?? '/'
+
 export default defineConfig({
-  base: '/',
+  base,
   title: 'versu',
   description: 'Intelligent Versioning Automation - Compose the epic of your code, one release at a time.',
   lang: 'en-US',
