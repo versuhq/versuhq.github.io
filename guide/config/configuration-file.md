@@ -96,7 +96,7 @@ export default {
 
 For more details on the available options, refer to the [conventional-changelog-writer documentation][conventional-changelog-writer].
 
-## Complete
+## Complete Example
 
 ::: warning
 This page is still under construction. Check back soon for the full example!
