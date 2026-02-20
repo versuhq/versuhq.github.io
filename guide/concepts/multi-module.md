@@ -60,61 +60,17 @@ The expected output is a JSON object with the following example structure:
 
 In this example, we have three modules: `core`, `cli`, and `plugin-gradle`. The `core` module is a dependency for both `cli` and `plugin-gradle`, so it lists them in its `affectedModules` array.
 
-The schema for this output is the following:
-
-```json
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Project Structure Information",
-  "description": "Schema for project structure information output",
-  "type": "object",
-  "patternProperties": {
-    ".*": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Name of the module"
-        },
-        "path": {
-          "type": "string",
-          "description": "Relative file system path to the module directory"
-        },
-        "version": {
-          "type": "string",
-          "description": "Current version of the module",
-          "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z-.]+)?$"
-        },
-        "affectedModules": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": ".*"
-          },
-          "description": "List of module ids that are affected when this module changes",
-          "uniqueItems": true
-        },
-        "type": {
-          "enum": ["root", "module"],
-          "description": "Type of the module (e.g., 'root', 'module')"
-        }
-      },
-      "required": ["name", "path", "affectedModules", "type"],
-      "additionalProperties": true
-    }
-  },
-  "additionalProperties": false
-}
-```
-
 ### Module Properties
 
-| Property | Type | Description |
-| ---------- | ------ | ------------- |
-| `name` | string | Unique identifier for the module |
-| `path` | string | Relative path to module root |
-| `affectedModules` | array | Array of module names this module affects |
-| `type` | string | Type of module ('root' or 'module') |
+| Property | Type | Description | Required |
+| ---------- | ------ | ------------- | --------- |
+| `name` | string | Name of the module | Yes |
+| `path` | string | Relative path to module root | Yes |
+| `version` | string | Current version of the module (semver) | No<sup>1</sup> |
+| `affectedModules` | array | Array of module identifiers this module affects | Yes |
+| `type` | string | Type of module (`root` or `module`) | Yes |
+
+<sup>1</sup> The `version` property is optional in the output from plugins and depends on the plugin's implementation.
 
 Additionally to these properties, plugins can include any other relevant information about the module as needed.
 
@@ -130,8 +86,8 @@ When you run Versu:
 
 1. It analyzes commits affecting each module
 2. Each module gets its own version bump
-3. Each module has its own CHANGELOG.md
-4. A root CHANGELOG.md is generated
+3. Each module has its own `CHANGELOG.md`
+4. A root `CHANGELOG.md` is generated
 
 ## Commit Scoping
 

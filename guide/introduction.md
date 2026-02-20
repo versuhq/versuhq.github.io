@@ -1,6 +1,6 @@
 # Introduction to Versu
 
-Versu is an intelligent versioning automation tool designed for modern software development. Whether you're working on a monorepo with dozens of interdependent modules or a simple single-module project, Versu adapts to your workflow.
+Versu `[ˈvɛr.su]` is an intelligent versioning automation tool designed for modern software development. Whether you're working on a monorepo with dozens of interdependent modules or a simple single-module project, Versu adapts to your workflow.
 
 ## What is Versu?
 
