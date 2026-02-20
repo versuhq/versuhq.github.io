@@ -106,7 +106,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/versuhq/versu/edit/main/:path',
+      pattern: 'https://github.com/versuhq/versuhq.github.io/edit/main/:path',
       text: 'Edit this page on GitHub'
     },
 
