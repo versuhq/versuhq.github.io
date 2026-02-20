@@ -33,13 +33,6 @@ export default defineConfig({
         ]
       },
       { text: 'Examples', link: '/examples/basic-setup' },
-      /*{
-        text: 'Resources',
-        items: [
-          { text: 'GitHub', link: 'https://github.com/versuhq/versu' },
-          { text: 'NPM', link: 'https://www.npmjs.com/package/@versu/core' },
-        ]
-      }*/
     ],
 
     sidebar: {
@@ -113,7 +106,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/versuhq/versu/edit/main/docs-vitepress/:path',
+      pattern: 'https://github.com/versuhq/versu/edit/main/:path',
       text: 'Edit this page on GitHub'
     },
 
