@@ -165,7 +165,9 @@ You can customize how Versu interprets commit types and their impacts on version
 
 From defining which types trigger which version bumps to specifying how dependency updates should be handled, you have full control over the versioning strategy.
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   versionRules: {
     defaultBump: 'patch',
@@ -189,6 +191,8 @@ export default {
   }
 }
 ```
+
+:::
 
 ## Further Reading
 

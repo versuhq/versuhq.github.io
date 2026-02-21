@@ -209,7 +209,9 @@ All downstream modules get a patch version bump automatically.
 
 Versu supports different strategies for cascading version bumps to dependent modules:
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   versionRules: {
     // ...
@@ -221,6 +223,8 @@ export default {
   }
 }
 ```
+
+:::
 
 On the example above a major bump in a module will trigger a major bump in its dependents, a minor bump will trigger a minor bump and so on. You can customize this behavior as needed.
 

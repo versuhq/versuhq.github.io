@@ -141,7 +141,9 @@ versu --append-snapshot
 
 In addition, you can customize versioning rules and their effect on version bumps in your `versu.config.js`:
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   versionRules: {
     defaultBump: 'patch',
@@ -165,6 +167,8 @@ export default {
   }
 }
 ```
+
+:::
 
 ## Best Practices
 

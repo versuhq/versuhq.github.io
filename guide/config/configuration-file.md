@@ -6,7 +6,9 @@ Learn how to configure Versu for your project.
 
 Versu uses cosmiconfig to load configuration from various file formats. It supports several file types, including Typescript and JavaScript files. The configuration file should export an object with the following structure:
 
-```typescript
+::: code-group
+
+```typescript [versu.config.ts]
 import type { VersuConfig } from "@versu/core";
 
 const config: VersuConfig = {
@@ -16,13 +18,17 @@ const config: VersuConfig = {
 export default config;
 ```
 
+:::
+
 ## Configuration Options
 
 ### `plugins` (required non-empty array)
 
 An array of plugins to use. Each plugin can be specified as a string (the package name).
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   plugins: [
     "@versu/plugin-gradle",
@@ -32,11 +38,15 @@ export default {
 };
 ```
 
+:::
+
 ### `versionRules` (optional)
 
 Defines how version bumps are determined based on commit types and dependency updates. This configuration allows you to specify the default bump level for commits and customize it for specific commit types and dependency updates.
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   // Other configuration options
   versionRules: {
@@ -63,13 +73,17 @@ export default {
 };
 ```
 
+:::
+
 ### `changelog` (optional)
 
 The `changelog` configuration allows you to customize how changelogs are generated. You can specify different configurations for the root project and for individual modules if you're working in a monorepo setup.
 
 Versu uses [conventional-changelog-writer] under the hood, so the options you provide here will be passed to the underlying changelog generation process. This allows you to customize the output of your changelogs based on your specific needs.
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   // Other configuration options
   changelog: {
@@ -88,6 +102,8 @@ export default {
 };
 ```
 
+:::
+
 <sup>1</sup> The `context` property allows you to provide additional information about the commits being processed. This can include details about the commit types, scopes, and any other relevant metadata that can be used to customize the changelog output.
 
 <sup>2</sup> The `options` property allows you to specify various options for how the changelog is generated. This can include settings for how commit messages are formatted, how sections are organized, and any other customization options provided by the underlying changelog generation library.
@@ -104,8 +120,9 @@ This page is still under construction. Check back soon for the full example!
 
 ### ES Module
 
-```javascript
-// versu.config.js
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   plugins: [ /* ... */ ],
   versionRules: { /* ... */ },
@@ -113,10 +130,13 @@ export default {
 };
 ```
 
+:::
+
 ### CommonJS
 
-```javascript
-// versu.config.cjs
+::: code-group
+
+```javascript [versu.config.cjs]
 module.exports = {
   plugins: [ /* ... */ ],
   versionRules: { /* ... */ },
@@ -124,10 +144,13 @@ module.exports = {
 };
 ```
 
+:::
+
 ### TypeScript (with type checking)
 
-```typescript
-// versu.config.ts
+::: code-group
+
+```typescript [versu.config.ts]
 import type { VersuConfig } from "@versu/core";
 
 export default {
@@ -136,6 +159,8 @@ export default {
   changelog: { /* ... */ },
 } satisfies VersuConfig;
 ```
+
+:::
 
 ## Next Steps
 

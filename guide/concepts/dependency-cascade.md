@@ -70,7 +70,9 @@ The cascade applies recursively through the dependency tree:
 
 By default dependents always get a bump matching their dependency's bump type:
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   versionRules: {
     // ...
@@ -82,6 +84,8 @@ export default {
   }
 }
 ```
+
+:::
 
 ```text
 core:    1.0.0 → 2.0.0  (BREAKING, MAJOR bump)

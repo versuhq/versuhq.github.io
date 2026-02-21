@@ -8,7 +8,9 @@ Versu uses [conventional-changelog-writer] under the hood to generate changelogs
 
 You can customize both the generation of the root changelog and the module changelogs (if you're using a monorepo setup) by providing specific configurations for each.
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   // Other configuration options
   changelog: {
@@ -27,6 +29,8 @@ export default {
 };
 ```
 
+:::
+
 <sup>1</sup> The `context` property allows you to provide additional information about the commits being processed. This can include details about the commit types, scopes, and any other relevant metadata that can be used to customize the changelog output.
 
 <sup>2</sup> The `options` property allows you to specify various options for how the changelog is generated. This can include settings for how commit messages are formatted, how sections are organized, and any other customization options provided by the underlying changelog generation library.
@@ -35,7 +39,9 @@ export default {
 
 As an example lets imagine you want to group commits in your changelog by their type (e.g., features, bug fixes, etc.). You can achieve this by customizing the `context` and `options` properties in your `changelog` configuration.
 
-```javascript
+::: code-group
+
+```javascript [versu.config.js]
 function commitGroupsSort(a, b) {
     const order = [
         "✨ Features",
@@ -105,6 +111,8 @@ export default {
   },
 };
 ```
+
+:::
 
 ## Changelog Format
 
@@ -177,26 +185,26 @@ The main template will define the overall structure of the changelog, including 
 
 {{/if~}}
 {{~#if version}}
-    {{~#if linkCompare}}
-        ## [{{version}}]({{repoUrl}}/compare/{{previousTag}}...{{currentTag}}) - {{date}}
-    {{~else}}
-        ## [{{version}}]({{repoUrl}}/releases/tag/{{version}}) - {{date}}
-    {{~/if}}
+{{~#if linkCompare}}
+## [{{version}}]({{repoUrl}}/compare/{{previousTag}}...{{currentTag}}) - {{date}}
 {{~else}}
-    {{~#if previousTag}}
-        ## [Unreleased]({{repoUrl}}/compare/{{previousTag}}...HEAD) - {{date}}
-    {{~else}}
-        ## Unreleased
-    {{~/if}}
+## [{{version}}]({{repoUrl}}/releases/tag/{{version}}) - {{date}}
+{{~/if}}
+{{~else}}
+{{~#if previousTag}}
+## [Unreleased]({{repoUrl}}/compare/{{previousTag}}...HEAD) - {{date}}
+{{~else}}
+## Unreleased
+{{~/if}}
 {{~/if}}
 
 {{#each commitGroups}}
 
-    ### {{title}}
+### {{title}}
 
-    {{#each commits}}
-        {{> commit}}
-    {{/each}}
+{{#each commits}}
+{{> commit}}
+{{/each}}
 {{/each}}
 {{#if prepend}}{{> footer}}{{/if}}
 

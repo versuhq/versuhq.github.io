@@ -24,11 +24,23 @@ Or install it globally to use it across multiple projects or system-wide:
 npm install -g @versu/cli
 ```
 
-## Step 2: Create Configuration File
+## Step 2: Install Plugins
 
-Create a `versu.config.js` file in your project root:
+Versu uses plugins to detect your project type and manage versioning. Install the appropriate plugins for your project. For example, if you're using Gradle:
 
-```javascript
+```bash
+npm install -g @versu/plugin-gradle
+```
+
+## Step 3: Create Configuration File (advisable)
+
+Versu can work with zero configuration by automatically searching for installed plugins.
+
+However, for performance and reliability reasons, as well as to enable advanced features, it's recommended to create a `versu.config.js` file in your project with at least the `plugins` array to explicitly specify which plugins to use.
+
+::: code-group
+
+```javascript [versu.config.js]
 export default {
   plugins: [
     // Add plugins here (e.g., npm, gradle, etc.)
@@ -37,7 +49,9 @@ export default {
 };
 ```
 
-## Step 3: Run Versu
+:::
+
+## Step 4: Run Versu
 
 If you installed Versu globally you can run:
 
@@ -63,7 +77,7 @@ Versu will:
 4. Generate changelogs
 5. Display results
 
-## Step 4: Results
+## Step 5: Results
 
 Versu will create or update:
 

@@ -76,6 +76,9 @@ Versu automates the entire versioning lifecycle:
 # Install versu CLI
 npm install -g @versu/cli
 
+# Install a versu plugin for your ecosystem (e.g. Gradle)
+npm install -g @versu/plugin-gradle
+
 # Run versioning in your project
 versu
 
