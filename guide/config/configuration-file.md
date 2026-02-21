@@ -26,8 +26,6 @@ An array of plugins to use. Each plugin can be specified as a string (the packag
 export default {
   plugins: [
     "@versu/plugin-gradle",
-    "@versu/plugin-maven",
-    "@versu/plugin-npm",
     //... other plugins
   ],
   // Other configuration options
