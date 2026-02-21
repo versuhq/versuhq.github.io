@@ -7,7 +7,7 @@ Learn how to configure Versu for your project.
 Versu uses cosmiconfig to load configuration from various file formats. It supports several file types, including Typescript and JavaScript files. The configuration file should export an object with the following structure:
 
 ```typescript
-import { VersuConfig } from "@versu/core";
+import type { VersuConfig } from "@versu/core";
 
 const config: VersuConfig = {
   // Your configuration options here
