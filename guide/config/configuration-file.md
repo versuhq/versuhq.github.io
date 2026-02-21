@@ -6,8 +6,8 @@ Learn how to configure Versu for your project.
 
 Versu uses cosmiconfig to load configuration from various file formats. It supports several file types, including Typescript and JavaScript files. The configuration file should export an object with the following structure:
 
-```ts
-import { VersuConfig } from "@versu/types";
+```typescript
+import { VersuConfig } from "@versu/core";
 
 const config: VersuConfig = {
   // Your configuration options here
@@ -32,7 +32,7 @@ export default {
 };
 ```
 
-### `versionRules` (required)
+### `versionRules` (optional)
 
 Defines how version bumps are determined based on commit types and dependency updates. This configuration allows you to specify the default bump level for commits and customize it for specific commit types and dependency updates.
 
@@ -128,7 +128,7 @@ module.exports = {
 
 ```typescript
 // versu.config.ts
-import type { VersuConfig } from "@versu/types";
+import type { VersuConfig } from "@versu/core";
 
 export default {
   plugins: [ /* ... */ ],
