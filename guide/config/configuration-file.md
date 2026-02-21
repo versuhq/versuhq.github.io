@@ -92,7 +92,7 @@ export default {
 
 <sup>2</sup> The `options` property allows you to specify various options for how the changelog is generated. This can include settings for how commit messages are formatted, how sections are organized, and any other customization options provided by the underlying changelog generation library.
 
-For more details on the available options, refer to the [conventional-changelog-writer documentation][conventional-changelog-writer].
+For more details on chengelog configuration check out the [changelog configuration guide](/guide/config/changelog) and the [conventional-changelog-writer documentation][conventional-changelog-writer].
 
 ## Complete Example
 
