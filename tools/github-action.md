@@ -12,15 +12,28 @@ Add to your GitHub Actions workflow:
 
 ## Inputs
 
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
+| Input | Description | Required | Default |
+| ------- | ------------- | ---------- | --------- |
+| `prerelease-mode` | Enable prerelease mode for generating pre-release versions. | No | `false` |
+| `prerelease-id` | Custom identifier for pre-release versions (e.g., `alpha`, `beta`). | No | `alpha` |
+| `bump-unchanged` | Bump version even if there are no changes since the last release. | No | `false` |
+| `add-build-metadata` | Add build metadata to the version (e.g., `1.0.0+build.123`). | No | `false` |
+| `timestamp-versions` | Append a timestamp to the version (e.g., `1.0.0-20240101.123456`). | No | `false` |
+| `append-snapshot` | Append `-SNAPSHOT` to the version (e.g., `1.0.0-SNAPSHOT`). | No | `false` |
+| `create-tags` | Automatically create Git tags for the new version. | No | `true` |
+| `generate-changelog` | Generate a changelog based on commits since the last version. | No | `true` |
+| `push-changes` | Push version changes and tags to the remote repository. | No | `true` |
+| `dry-run` | Run the action without making any changes (for testing). | No | `false` |
+| `adapter` | Specify a custom adapter for versioning. | No | (none) |
 
 ## Outputs
 
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
+| Output | Description |
+| -------- | ------------- |
+| `bumped` | Indicates whether a version bump was performed (`true` or `false`). |
+| `changed-modules` | A JSON array of modules that were changed and had their versions bumped. |
+| `created-tags` | A JSON array of Git tags that were created during the versioning process. |
+| `changelog-paths` | A JSON array of file paths where changelogs were generated or updated. |
 
 ## Examples
 
