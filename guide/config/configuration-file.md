@@ -22,9 +22,13 @@ export default config;
 
 ## Configuration Options
 
-### `plugins` (required non-empty array)
+### `plugins` (optional)
 
 An array of plugins to use. Each plugin can be specified as a string (the package name).
+
+Versu can work with zero configuration by automatically searching for installed plugins.
+
+However, for performance and reliability reasons, it's recommended to explicitly specify the plugins you want to use in your configuration file. This helps avoid issues with plugin discovery and ensures that Versu loads the correct plugins for your project.
 
 ::: code-group
 
