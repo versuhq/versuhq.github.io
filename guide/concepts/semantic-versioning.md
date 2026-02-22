@@ -187,7 +187,7 @@ export default {
 - Break API without incrementing MAJOR
 - Commit breaking changes without pre-release testing
 
-## Relationship with Conventional Commits
+## Relationship with Commits
 
 Semantic Versioning defines **what** to increment, while Conventional Commits specifies **how** to determine what to increment:
 

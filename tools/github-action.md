@@ -7,7 +7,7 @@ Versu GitHub Action automates versioning in your CI/CD pipeline.
 Add to your GitHub Actions workflow:
 
 ```yaml
-- uses: versuhq/versu@latest
+- uses: versuhq/versu@v0
 ```
 
 ## Inputs
@@ -37,9 +37,103 @@ Add to your GitHub Actions workflow:
 
 ## Examples
 
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
+### Basic Release Workflow
+
+```yaml
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0  # Full history for commit analysis
+
+      #### Setup Project Requiremnts ########
+
+      # Add any additional setup steps here
+      # such as installing dependencies or
+      # configuring the environment.
+
+      #######################################
+      
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      # Install Plugin for your project type (e.g., Gradle, etc.)
+      - name: Install Versu Gradle Plugin
+        run: npm i -g @versu/plugin-gradle
+
+      - name: Run Versu
+        uses: versuhq/versu@v0
+
+      # Note: The above step will automatically
+      # create tags and push changes by default.
+
+      # This will trigger create tags events on
+      # GitHub, which can be used to trigger
+      # additional workflows such as publishing
+      # to a package registry, etc.
+```
+
+### Development Workflow
+
+```yaml
+name: Development
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  development:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+        with:
+          # Full history for commit analysis
+          fetch-depth: 0
+
+      #### Setup Project Requiremnts ########
+
+      # Add any additional setup steps here
+      # such as installing dependencies or
+      # configuring the environment.
+
+      #######################################
+      
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      # Install Plugin for your project type (e.g., Gradle, etc.)
+      - name: Install Versu Gradle Plugin
+        run: npm i -g @versu/plugin-gradle
+
+      - name: Run Versu in Development Mode
+        uses: versuhq/versu@v0
+        with:
+          bump-unchanged: true
+          append-snapshot: true
+          push-tags: false
+          push-changes: false
+          generate-changelog: false
+
+      # Add any additional steps here, such as
+      # building the project, running tests, etc.
+```
 
 ## Troubleshooting
 
@@ -48,8 +142,8 @@ This page is still under construction. Check back soon for the full example!
 Make sure you're using the correct action name:
 
 ```yaml
-uses: versuhq/versu@latest  # Correct
-uses: versu@latest           # Wrong
+uses: versuhq/versu@v0  # Correct
+uses: versu@v0           # Wrong
 ```
 
 ### No Fetch Depth
@@ -70,10 +164,6 @@ Ensure workflow has necessary permissions:
 permissions:
   contents: write
 ```
-
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
 
 ## Next Steps
 

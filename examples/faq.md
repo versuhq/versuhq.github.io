@@ -203,7 +203,7 @@ Run `versu` without `--prerelease` flag to create the official release.
 Use the GitHub Action:
 
 ```yaml
-- uses: versuhq/versu@latest
+- uses: versuhq/versu@v0
 ```
 
 ### Do I need to set up any secrets?

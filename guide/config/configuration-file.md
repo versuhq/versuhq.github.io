@@ -114,12 +114,6 @@ export default {
 
 For more details on chengelog configuration check out the [changelog configuration guide](/guide/config/changelog) and the [conventional-changelog-writer documentation][conventional-changelog-writer].
 
-## Complete Example
-
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
-
 ## Alternative Formats
 
 ### ES Module

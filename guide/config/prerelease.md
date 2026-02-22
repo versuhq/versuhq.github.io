@@ -2,7 +2,7 @@
 
 Learn how to generate pre-release versions with Versu.
 
-## What are Pre-release Versions?
+## Pre-release what?
 
 Pre-release versions indicate unstable releases for testing before the official version:
 

@@ -102,7 +102,7 @@ export default {
 ## GitHub Action
 
 ```yaml
-- uses: versuhq/versu@latest
+- uses: versuhq/versu@v0
 ```
 
 ## File Locations

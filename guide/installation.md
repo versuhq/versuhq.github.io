@@ -49,7 +49,7 @@ pnpm add -g @versu/cli
 If you want to use Versu in your CI/CD pipeline, add this to your GitHub Actions workflow:
 
 ```yaml
-- uses: versuhq/versu@latest
+- uses: versuhq/versu@v0
   with:
     # Your configuration here
 ```

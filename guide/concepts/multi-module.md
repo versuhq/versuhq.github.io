@@ -2,7 +2,7 @@
 
 Versu is built for monorepos and multi-module projects where each module can be versioned independently.
 
-## Understanding Multi-Module Structure
+## Understanding Structure
 
 A typical multi-module project looks like:
 

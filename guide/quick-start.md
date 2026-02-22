@@ -32,7 +32,7 @@ Versu uses plugins to detect your project type and manage versioning. Install th
 npm install -g @versu/plugin-gradle
 ```
 
-## Step 3: Create Configuration File (advisable)
+## Step 3: Create Configuration
 
 Versu can work with zero configuration by automatically searching for installed plugins.
 
