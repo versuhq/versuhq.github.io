@@ -14,7 +14,7 @@ Not really! If you're already using Conventional Commits, Versu works automatica
 
 ### Can Versu work with my existing project?
 
-Yes! Versu works with any project structure. Just define your modules in `versu.config.js` and run it.
+Yes! Versu is not tied to any specific project structure or language. As long as there is a plugin for your project type (e.g., Gradle, npm, etc.), Versu can analyze your commits and manage versions.
 
 ### Is Versu free?
 
@@ -28,18 +28,14 @@ Versu requires Node.js 20 or higher. Check your version with `node --version`.
 
 ### Can I install Versu globally?
 
-Yes! Run `npm install -g versu` and use the `versu` command directly.
-
-### Should I commit `package.json` changes after running Versu?
-
-Yes! Versu updates your version files, and those changes should be committed to your repository.
+Yes! Run `npm install -g @versu/cli` and use the `versu` command directly.
 
 ### Can I run Versu in CI/CD?
 
 Absolutely! Use the GitHub Action or run it in any CI/CD pipeline:
 
 ```bash
-npx versu
+npx @versu/cli
 ```
 
 ## Usage Questions
@@ -47,14 +43,6 @@ npx versu
 ### How do I know what version I'll get?
 
 Run `versu --dry-run` to preview changes without applying them!
-
-### Can I version only specific modules?
-
-Yes! Use the `--modules` flag:
-
-```bash
-npx versu --modules core,cli
-```
 
 ### What if I want to skip versioning?
 
@@ -84,20 +72,29 @@ Examples: `feat(auth): add login`, `fix(api): resolve bug`
 
 ### Does every commit need a type?
 
-No. Commits without types (like `docs:` or `chore:`) don't affect versioning.
+No. Commits without types will be ignored for versioning.
 
 ### Can I use custom types?
 
 Yes! Configure custom types in `versu.config.js`:
 
 ```javascript
-changelog: {
-  sections: [
-    { title: 'Features', types: ['feat', 'feature'] },
-    { title: 'Fixes', types: ['fix', 'bugfix'] }
-  ]
-}
+export default {
+  // Other configuration options
+  versionRules: {
+    //... other version rules
+    commitTypeBumps: {
+      feat: "minor", // major, minor, patch, or ignore
+      fix: "patch",
+      //...
+      //... other custom commit types
+    },
+    //... other version rules
+  },
+};
 ```
+
+Check out the [configuration guide](/guide/config/configuration-file) for more details.
 
 ### What's a breaking change?
 
@@ -120,19 +117,7 @@ Module B (1.0.0 → 1.0.1)  ← Cascaded patch bump
 
 ### Can I disable cascade for specific modules?
 
-Yes! Configure it:
-
-```javascript
-{
-  name: 'cli',
-  dependencies: [
-    {
-      name: 'core',
-      cascade: false
-    }
-  ]
-}
-```
+No. Cascade is an integral part of how Versu ensures consistency across modules. If you have a use case that requires more granular control, please [open an discussion](https://github.com/versuhq/versu/discussions).
 
 ### What if I have circular dependencies?
 
@@ -142,33 +127,22 @@ Don't! Circular dependencies are architectural issues. Versu will fail. Refactor
 
 ```bash
 # Pre-release specific modules
-npx versu --prerelease alpha --modules core,cli
+npx @versu/cli --prerelease-mode
 ```
 
 ## Changelog
 
 ### Where is the changelog generated?
 
-By default, in `CHANGELOG.md` in each module's directory.
+By default, in `CHANGELOG.md` in each module's directory and at the root for the overall project.
 
 ### Can I customize the changelog format?
 
-Yes! Use the `changelog.sections` configuration to organize commits by type.
-
-### How do I preserve existing changelog?
-
-Set `changelog.keep: true`:
-
-```javascript
-changelog: {
-  enabled: true,
-  keep: true  // Prepend new entries
-}
-```
+Yes! Use the `changelog` property in your configuration file. Check out the [changelog configuration guide](/guide/config/changelog) for details.
 
 ### Can I generate changelogs only?
 
-You can implement custom logic with the API, or manually organize changelog entries.
+No. Changelog generation is part of the versioning process when enabled and for now cannot be run independently. If you need this feature, please [open a discussion](https://github.com/versuhq/versu/discussions).
 
 ## Pre-releases
 
@@ -184,17 +158,9 @@ Use them for:
 - Feature-complete testing (beta)
 - Final verification (rc)
 
-### Can I publish pre-releases to npm?
-
-Yes! Use npm's `--tag` flag:
-
-```bash
-npm publish --tag alpha
-```
-
 ### How do I transition from beta to release?
 
-Run `versu` without `--prerelease` flag to create the official release.
+Run `versu` without `--prerelease-mode` flag to create the official release.
 
 ## GitHub Actions
 
@@ -208,7 +174,9 @@ Use the GitHub Action:
 
 ### Do I need to set up any secrets?
 
-For publishing to npm, you'll need `NPM_TOKEN`. GitHub token is automatic.
+Versu doesn't require secrets by default, but if you want to push changes or create tags, make sure your GitHub token has the necessary permissions.
+
+Also check that the plugins you use don't require additional secrets.
 
 ### Can I run Versu only on certain branches?
 
@@ -236,7 +204,7 @@ Check the logs. Common issues:
 This is normal! It means either:
 
 - No commits follow Conventional Commits
-- All commits are `docs`, `chore`, etc.
+- Affected commits are configured to be ignored
 
 ### "Configuration error"
 
@@ -260,15 +228,15 @@ Try: `git log --oneline`
 
 Check:
 
-1. Dependencies listed in config
+1. Dependencies are correctly detected
 2. Commits affect the right files
-3. Use `--verbose` flag to debug
+3. Use `DEBUG=versu*` flag to debug
 
 ### Changelog not generated
 
 Ensure:
 
-1. `changelog.enabled: true` in config
+1. `changelog` configuration is correct
 2. Module has commits with types
 3. File path is writable
 
@@ -288,6 +256,10 @@ Versu only needs history since last release, but `--fetch-depth: 0` is recommend
 
 Yes! That's its primary use case.
 
+### Does Versu work with non-monorepo projects?
+
+Yes! Versu can be used in single-module projects as well.
+
 ### Can I use Versu with Lerna/Yarn Workspaces?
 
 Yes! Versu works independently of workspace tools.
@@ -299,20 +271,6 @@ Yes! Versu is tool-agnostic and works alongside build tools, test frameworks, et
 ### What package managers does Versu support?
 
 Versu works with npm, Yarn, and PNPM equally well.
-
-## Migration
-
-### Can I migrate from other tools to Versu?
-
-Yes! Versu reads from your existing version files and continues from there.
-
-### What if I used semantic-release before?
-
-Versu is a complete alternative. You can migrate your configuration.
-
-### Will Versu break my existing workflow?
-
-No! Use `--dry-run` to test first. Versu only changes what you tell it to.
 
 ## Getting Help
 
