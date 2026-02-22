@@ -116,6 +116,14 @@ For more details on chengelog configuration check out the [changelog configurati
 
 ## Alternative Formats
 
+Versu uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to load configuration files. This allows you to use different file formats and locations for your configuration. Below are examples of how to structure your configuration file in different formats.
+
+::: warning
+
+If you choose to use a non-JavaScript format (like JSON or YAML), you won't be able to include features like functions or variables in your configuration, that are required for some configuration options. In such cases, you would need to use JavaScript or TypeScript for your configuration file to take full advantage of all the features Versu offers.
+
+:::
+
 ### ES Module
 
 ::: code-group
