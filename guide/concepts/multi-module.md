@@ -213,20 +213,30 @@ Versu supports different strategies for cascading version bumps to dependent mod
 
 ```javascript [versu.config.js]
 export default {
-  versionRules: {
-    // ...
-    dependencyBumps: {
-      major: 'major',
-      minor: 'minor',
-      patch: 'patch'
-    }
-  }
+  versioning: {
+    // ... other versioning options
+    cascadeRules: {
+      stable: {
+        major: "major",
+        minor: "minor",
+        patch: "patch",
+      },
+      prerelease: {
+        premajor: "premajor",
+        preminor: "preminor",
+        prepatch: "prepatch",
+        prerelease: "prerelease",
+      },
+    },
+  },
 }
 ```
 
 :::
 
-On the example above a major bump in a module will trigger a major bump in its dependents, a minor bump will trigger a minor bump and so on. You can customize this behavior as needed.
+On the example above when stable versioning is being used (i.e. not a pre-release), a major bump in a module will trigger a major bump in its dependents, a minor bump will trigger a minor bump and so on. You can customize this behavior as needed, for both stable and pre-release versions, to fit your project's requirements.
+
+For more information regarding pre-release versioning refer to [Pre-release Versions](/guide/config/prerelease) section in the configuration guide.
 
 ## Next Steps
 

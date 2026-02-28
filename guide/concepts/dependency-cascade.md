@@ -74,14 +74,22 @@ By default dependents always get a bump matching their dependency's bump type:
 
 ```javascript [versu.config.js]
 export default {
-  versionRules: {
-    // ...
-    dependencyBumps: {
-      major: 'major',
-      minor: 'minor',
-      patch: 'patch'
-    }
-  }
+  versioning: {
+    // ... other versioning options
+    cascadeRules: {
+      stable: {
+        major: "major",
+        minor: "minor",
+        patch: "patch",
+      },
+      prerelease: {
+        premajor: "premajor",
+        preminor: "preminor",
+        prepatch: "prepatch",
+        prerelease: "prerelease",
+      },
+    },
+  },
 }
 ```
 

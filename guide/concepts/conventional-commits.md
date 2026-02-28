@@ -169,26 +169,71 @@ From defining which types trigger which version bumps to specifying how dependen
 
 ```javascript [versu.config.js]
 export default {
-  versionRules: {
-    defaultBump: 'patch',
-    commitTypeBumps: {
-      feat: 'minor',
-      fix: 'patch',
-      perf: 'patch',
-      refactor: 'patch',
-      docs: 'none',
-      style: 'none',
-      test: 'none',
-      chore: 'none',
-      ci: 'none',
-      build: 'none'
+  versioning: {
+    breakingChange: {
+      stable: "major",
+      prerelease: "premajor",
     },
-    dependencyBumps: {
-      major: 'major',
-      minor: 'minor',
-      patch: 'patch'
-    }
-  }
+    unknownCommitType: {
+      stable: "patch",
+      prerelease: "prepatch",
+    },
+    commitTypes: {
+      feat: {
+        stable: "minor",
+        prerelease: "preminor",
+      },
+      fix: {
+        stable: "patch",
+        prerelease: "prepatch",
+      },
+      perf: {
+        stable: "patch",
+        prerelease: "prepatch",
+      },
+      refactor: {
+        stable: "patch",
+        prerelease: "prepatch",
+      },
+      docs: {
+        stable: "none",
+        prerelease: "none",
+      },
+      test: {
+        stable: "none",
+        prerelease: "none",
+      },
+      chore: {
+        stable: "none",
+        prerelease: "none",
+      },
+      style: {
+        stable: "none",
+        prerelease: "none",
+      },
+      ci: {
+        stable: "none",
+        prerelease: "none",
+      },
+      build: {
+        stable: "none",
+        prerelease: "none",
+      },
+    },
+    cascadeRules: {
+      stable: {
+        major: "major",
+        minor: "minor",
+        patch: "patch",
+      },
+      prerelease: {
+        premajor: "premajor",
+        preminor: "preminor",
+        prepatch: "prepatch",
+        prerelease: "prerelease",
+      },
+    },
+  },
 }
 ```
 

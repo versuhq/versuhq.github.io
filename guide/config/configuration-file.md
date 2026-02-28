@@ -44,34 +44,83 @@ export default {
 
 :::
 
-### `versionRules` (optional)
+### `versioning` (optional)
 
-Defines how version bumps are determined based on commit types and dependency updates. This configuration allows you to specify the default bump level for commits and customize it for specific commit types and dependency updates.
+Defines how version bumps are determined based on commit types and dependency updates. This configuration allows you to specify which commit types trigger which version bumps, as well as how to handle unknown commit types and breaking changes. You can also customize how version bumps cascade through dependencies.
 
 ::: code-group
 
 ```javascript [versu.config.js]
 export default {
   // Other configuration options
-  versionRules: {
-    defaultBump: "patch", // major, minor, patch, or none
-    commitTypeBumps: {
-      feat: "minor", // major, minor, patch, or ignore
-      fix: "patch",
-      perf: "patch",
-      refactor: "patch",
-      docs: "ignore",
-      test: "ignore",
-      chore: "ignore",
-      style: "ignore",
-      ci: "ignore",
-      build: "ignore",
+  versioning: {
+    breakingChange: {
+      // major, minor, patch, or none
+      stable: "major",
+      // premajor, preminor, prepatch, prerelease, or none
+      prerelease: "premajor",
+    },
+    unknownCommitType: {
+      stable: "patch",
+      prerelease: "prepatch",
+    },
+    commitTypes: {
+      feat: {
+        stable: "minor",
+        prerelease: "preminor",
+      },
+      fix: {
+        stable: "patch",
+        prerelease: "prepatch",
+      },
+      perf: {
+        stable: "patch",
+        prerelease: "prepatch",
+      },
+      refactor: {
+        stable: "patch",
+        prerelease: "prepatch",
+      },
+      docs: {
+        stable: "none",
+        prerelease: "none",
+      },
+      test: {
+        stable: "none",
+        prerelease: "none",
+      },
+      chore: {
+        stable: "none",
+        prerelease: "none",
+      },
+      style: {
+        stable: "none",
+        prerelease: "none",
+      },
+      ci: {
+        stable: "none",
+        prerelease: "none",
+      },
+      build: {
+        stable: "none",
+        prerelease: "none",
+      },
       //... other custom commit types
     },
-    dependencyBumps: {
-      major: "major", // major, minor, patch or none
-      minor: "minor",
-      patch: "patch",
+    cascadeRules: {
+      stable: {
+        // major, minor, patch, or none
+        major: "major",
+        minor: "minor",
+        patch: "patch",
+      },
+      prerelease: {
+        // premajor, preminor, prepatch, prerelease, or none
+        premajor: "premajor",
+        preminor: "preminor",
+        prepatch: "prepatch",
+        prerelease: "prerelease",
+      },
     },
   },
 };
@@ -131,7 +180,7 @@ If you choose to use a non-JavaScript format (like JSON or YAML), you won't be a
 ```javascript [versu.config.js]
 export default {
   plugins: [ /* ... */ ],
-  versionRules: { /* ... */ },
+  versioning: { /* ... */ },
   changelog: { /* ... */ },
 };
 ```
@@ -145,7 +194,7 @@ export default {
 ```javascript [versu.config.cjs]
 module.exports = {
   plugins: [ /* ... */ ],
-  versionRules: { /* ... */ },
+  versioning: { /* ... */ },
   changelog: { /* ... */ },
 };
 ```
@@ -161,7 +210,7 @@ import type { VersuConfig } from "@versu/core";
 
 export default {
   plugins: [ /* ... */ ],
-  versionRules: { /* ... */ },
+  versioning: { /* ... */ },
   changelog: { /* ... */ },
 } satisfies VersuConfig;
 ```
