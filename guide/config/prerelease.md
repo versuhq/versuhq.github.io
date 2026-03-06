@@ -16,9 +16,9 @@ Pre-release versions indicate unstable releases for testing before the official 
 Pre-release mode can be enabled via CLI:
 
 ```bash
-versu --prerelease-mode # default tag is 'alpha'
-versu --prerelease-mode --prerelease-id beta
-versu --prerelease-mode --prerelease-id rc
+versu run --prerelease-mode # default tag is 'alpha'
+versu run --prerelease-mode --prerelease-id beta
+versu run --prerelease-mode --prerelease-id rc
 ```
 
 ## Pre-release Tags
@@ -37,7 +37,7 @@ versu --prerelease-mode --prerelease-id rc
 You can provide any custom tag with `--prerelease-id`:
 
 ```bash
-versu --prerelease-mode --prerelease-id custom
+versu run --prerelease-mode --prerelease-id custom
 ```
 
 ## Pre-release Workflow
@@ -57,7 +57,7 @@ This page is still under construction. Check back soon for the full example!
 You can add short SHA as build metadata to a version:
 
 ```bash
-versu --prerelease-mode --add-build-metadata
+versu run --prerelease-mode --add-build-metadata
 ```
 
 Result: `1.0.0-alpha.1+build.abc1234`

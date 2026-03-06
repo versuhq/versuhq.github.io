@@ -56,13 +56,13 @@ export default {
 If you installed Versu globally you can run:
 
 ```bash
-versu
+versu run
 ```
 
 You can also run it using npx:
 
 ```bash
-npx @versu/cli
+npx @versu/cli run
 ```
 
 ::: info
@@ -96,10 +96,10 @@ You can execute with `--dry-run` flag to see what changes would be made without 
 
 ```bash
 # Check what will be versioned
-versu --dry-run
+versu run --dry-run
 
 # Generate specific pre-release
-versu --prerelease-mode --prerelease-id alpha
+versu run --prerelease-mode --prerelease-id alpha
 ```
 
 ## Next Steps
@@ -127,7 +127,7 @@ Plugins are responsible for identifying project structure and its dependencies. 
 You can enable debug logging to see how Versu is analyzing your project:
 
 ```bash
-DEBUG=versu* versu #...
+DEBUG=versu* versu run #...
 ```
 
 ### Still stuck?

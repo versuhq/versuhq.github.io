@@ -1,11 +1,22 @@
 # CLI Tool
 
-Versu CLI provides a command-line interface for versioning your projects.
+Versu CLI provides a command-line interface for versioning your projects and managing its plugins.
+
+For general help and usage information, you can run:
+
+```bash
+versu --help
+```
+
+The CLI supports two main commands detailed in the sections below:
+
+- `run` for running the versioning process
+- `plugin` for managing plugins
 
 ## Basic Usage
 
 ```bash
-versu [path] [options]
+versu run [path] [options]
 ```
 
 - `path` (optional): The path to the project you want to version. If not specified, it defaults to the current working directory.
@@ -26,30 +37,30 @@ This will:
 - Generate changelogs
 - Create Git tags and push changes
 
-## Options
+### Run Options
 
-### `--help`
+#### `--help` (run)
 
-Display help information about the CLI.
+Display help information about the run command and its options.
 
 ```bash
-versu --help
+versu run --help
 ```
 
-### `--version`
+#### `--version`
 
 Display the version of the CLI.
 
 ```bash
-versu --version
+versu run --version
 ```
 
-### `--adapter <adapter>`
+#### `--adapter <adapter>`
 
 Specify a custom adapter for versioning, disabling automatic adapter detection.
 
 ```bash
-versu --adapter custom-adapter
+versu run --adapter custom-adapter
 ```
 
 ::: warning
@@ -58,20 +69,20 @@ Using a custom adapter will disable automatic detection of the appropriate adapt
 
 :::
 
-### `--add-build-metadata`
+#### `--add-build-metadata`
 
 Add SHA build metadata to the generated version. This is useful for tracking the specific commit associated with a version, especially in CI/CD pipelines.
 
 ```bash
-versu --add-build-metadata
+versu run --add-build-metadata
 ```
 
-### `--append-snapshot`
+#### `--append-snapshot`
 
 Append `-SNAPSHOT` to the generated version. This is commonly used to indicate that the version is a pre-release or in development.
 
 ```bash
-versu --append-snapshot
+versu run --append-snapshot
 ```
 
 ::: warning
@@ -80,56 +91,56 @@ This is only applicable is your project supports snapshot versions. Make sure to
 
 :::
 
-### `--bump-unchanged`
+#### `--bump-unchanged`
 
 Bump the version even if there are no changes detected. This can be useful in scenarios where you want to force a version bump regardless of commit history.
 
 ```bash
-versu --bump-unchanged
+versu run --bump-unchanged
 ```
 
-### `--create-tags`
+#### `--create-tags`
 
 Automatically create Git tags for the new version. This is useful if you are releasing your project and want to have a tagged release in your Git history.
 
 ```bash
-versu --create-tags
+versu run --create-tags
 ```
 
 You can disable tag creation by using the `--no-create-tags` option:
 
 ```bash
-versu --no-create-tags
+versu run --no-create-tags
 ```
 
-### `--dry-run`
+#### `--dry-run`
 
 Run the versioning process without making any changes to files or Git history. This allows you to see what changes would be made without actually applying them.
 
 ```bash
-versu --dry-run
+versu run --dry-run
 ```
 
-### `--generate-changelog`
+#### `--generate-changelog`
 
 Generate a changelog based on the commits since the last version. This is useful for keeping a record of changes in your project and communicating them to users.
 
 ```bash
-versu --generate-changelog
+versu run --generate-changelog
 ```
 
 You can disable changelog generation by using the `--no-generate-changelog` option:
 
 ```bash
-versu --no-generate-changelog
+versu run --no-generate-changelog
 ```
 
-### `--prerelease-mode`
+#### `--prerelease-mode`
 
 Enable prerelease mode, which allows you to generate pre-release versions (e.g., `1.0.0-alpha.1`). This is useful for testing and development purposes before a stable release.
 
 ```bash
-versu --prerelease-mode
+versu run --prerelease-mode
 ```
 
 ::: info
@@ -138,36 +149,90 @@ Default prerelease identifier is `alpha`, but you can customize it in your confi
 
 :::
 
-### `--prerelease-id <identifier>`
+#### `--prerelease-id <identifier>`
 
 Specify a custom prerelease identifier to use when generating pre-release versions. This allows you to differentiate between different types of pre-releases (e.g., `alpha`, `beta`, `rc`).
 
 ```bash
-versu --prerelease-mode --prerelease-id beta
+versu run --prerelease-mode --prerelease-id beta
 ```
 
-### `--push-changes`
+#### `--push-changes`
 
 Automatically push changes to the remote repository after versioning. This is useful in CI/CD pipelines where you want to automate the entire release process, including pushing changes to the remote repository.
 
 ```bash
-versu --push-changes
+versu run --push-changes
 ```
 
 You can disable pushing changes by using the `--no-push-changes` option:
 
 ```bash
-versu --no-push-changes
+versu run --no-push-changes
 ```
 
-### `--timestamp-versions`
+#### `--timestamp-versions`
 
 Append a timestamp to the generated version. This can be useful for creating unique versions in scenarios where you want to avoid version conflicts or need to track when a version was generated.
 
 This setting requires `--prerelease-mode` to be enabled, as it is typically used in conjunction with pre-release versions.
 
 ```bash
-versu --timestamp-versions
+versu run --timestamp-versions
+```
+
+## Plugin Management
+
+Versu CLI also provides commands for managing plugins, allowing you to extend the functionality of the versioning process with custom adapters.
+
+```bash
+versu plugin [command] [options]
+```
+
+### `--help` (plugin)
+
+Display help information about the plugin command and its options.
+
+```bash
+versu plugin --help
+```
+
+### `list`
+
+List all installed plugins.
+
+```bash
+versu plugin list
+```
+
+### `install`
+
+```bash
+versu plugin install [plugin-name] (-g | --global)
+```
+
+- `plugin-name`: The name of the plugin to install. This should be the package name of the plugin, which can be found on npm or in the plugin registry.
+- `-g`, `--global`: (Optional) Install the plugin globally. If not specified, the plugin will be installed locally in the current project.
+
+```bash
+versu plugin install @versu/plugin-gradle # Install locally
+
+versu plugin install @versu/plugin-gradle -g # Install globally
+```
+
+### `uninstall`
+
+```bash
+versu plugin uninstall [plugin-name] (-g | --global)
+```
+
+- `plugin-name`: The name of the plugin to uninstall. This should be the package name of the plugin, which can be found on npm or in the plugin registry.
+- `-g`, `--global`: (Optional) Uninstall the plugin globally. If not specified, the plugin will be uninstalled locally in the current project.
+
+```bash
+versu plugin uninstall @versu/plugin-gradle # Uninstall locally
+
+versu plugin uninstall @versu/plugin-gradle -g # Uninstall globally
 ```
 
 ## Next Steps

@@ -35,14 +35,14 @@ Yes! Run `npm install -g @versu/cli` and use the `versu` command directly.
 Absolutely! Use the GitHub Action or run it in any CI/CD pipeline:
 
 ```bash
-npx @versu/cli
+npx @versu/cli run
 ```
 
 ## Usage Questions
 
 ### How do I know what version I'll get?
 
-Run `versu --dry-run` to preview changes without applying them!
+Run `versu run --dry-run` to preview changes without applying them!
 
 ### What if I want to skip versioning?
 
@@ -127,7 +127,7 @@ Don't! Circular dependencies are architectural issues. Versu will fail. Refactor
 
 ```bash
 # Pre-release specific modules
-npx @versu/cli --prerelease-mode
+npx @versu/cli run --prerelease-mode
 ```
 
 ## Changelog

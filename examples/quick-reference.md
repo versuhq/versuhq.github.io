@@ -22,18 +22,18 @@ npm install -g @versu/cli
 
 ```bash
 # Run versioning
-npx @versu/cli
+npx @versu/cli run
 
 # Dry run (preview only)
-npx @versu/cli --dry-run
+npx @versu/cli run --dry-run
 
 # Pre-release
-npx @versu/cli --prerelease-mode --prerelease-id alpha
-npx @versu/cli --prerelease-mode --prerelease-id beta
-npx @versu/cli --prerelease-mode --prerelease-id rc
+npx @versu/cli run --prerelease-mode --prerelease-id alpha
+npx @versu/cli run --prerelease-mode --prerelease-id beta
+npx @versu/cli run --prerelease-mode --prerelease-id rc
 
 # Verbose output
-DEBUG=versu* npx @versu/cli
+DEBUG=versu* npx @versu/cli run
 
 # Help
 npx @versu/cli --help

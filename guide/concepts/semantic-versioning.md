@@ -126,17 +126,17 @@ Configure how Versu handles versioning:
 
 ```bash
 # Enable pre-release versioning
-versu --prerelease-mode --prerelease-id alpha
+versu run --prerelease-mode --prerelease-id alpha
 
 # Add build metadata with short git hash
-versu --add-build-metadata
+versu run --add-build-metadata
 
 # Use timestamps prerelease identifiers
-versu --prerelease-mode --timestamp-versions
+versu run --prerelease-mode --timestamp-versions
 
 # Add SNAPSHOT suffix for development versions
 # if supported by your plugins
-versu --append-snapshot
+versu run --append-snapshot
 ```
 
 In addition, you can customize versioning rules and their effect on version bumps in your `versu.config.js`:
