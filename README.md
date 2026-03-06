@@ -72,7 +72,7 @@ Versu is an intelligent versioning automation tool that eliminates manual versio
 
 ## Latest Updates
 
-This documentation covers Versu v0.6.15 and above.
+This documentation covers Versu v0.7.0 and above.
 
 ---
 
