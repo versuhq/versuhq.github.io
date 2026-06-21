@@ -6,7 +6,7 @@ Get Versu running in your project in 5 minutes.
 
 Before starting, make sure you have:
 
-- ✅ Node.js 20+ installed
+- ✅ Node.js 24+ installed
 - ✅ A Git repository initialized
 - ✅ Your project follows [Conventional Commits](https://conventionalcommits.org/)
 

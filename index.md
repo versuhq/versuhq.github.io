@@ -51,22 +51,22 @@ features:
 
 Managing versions in multi-module projects is painful:
 
-- **Manual versioning is error-prone** — Developers forget to bump versions or choose the wrong increment
-- **Dependencies are a nightmare** — When module A changes, which dependents need bumping?
-- **Inconsistent practices** — Different team members have different versioning philosophies
-- **Changelog chaos** — Manually maintained changelogs become outdated or incomplete
-- **CI/CD complexity** — Building robust versioning automation from scratch is time-consuming
+- **Manual versioning is error-prone** - Developers forget to bump versions or choose the wrong increment
+- **Dependencies are a nightmare** - When module A changes, which dependents need bumping?
+- **Inconsistent practices** - Different team members have different versioning philosophies
+- **Changelog chaos** - Manually maintained changelogs become outdated or incomplete
+- **CI/CD complexity** - Building robust versioning automation from scratch is time-consuming
 
 ### The Solution
 
 Versu automates the entire versioning lifecycle:
 
-- **Zero manual decisions** — Your commit messages dictate version bumps automatically
-- **Smart dependency tracking** — When a module changes, Versu automatically identifies and versions all dependents
-- **Team consistency** — Everyone follows the same Conventional Commits standard
-- **Generated changelogs** — Beautiful, accurate changelogs generated per-module from commit history
-- **Pre-release support** — Seamlessly generate alpha, beta, rc, or custom pre-release versions
-- **Ecosystem agnostic** — Works with Gradle, npm, Maven, or any ecosystem through custom plugins
+- **Zero manual decisions** - Your commit messages dictate version bumps automatically
+- **Smart dependency tracking** - When a module changes, Versu automatically identifies and versions all dependents
+- **Team consistency** - Everyone follows the same Conventional Commits standard
+- **Generated changelogs** - Beautiful, accurate changelogs generated per-module from commit history
+- **Pre-release support** - Seamlessly generate alpha, beta, rc, or custom pre-release versions
+- **Ecosystem agnostic** - Works with Gradle, npm, Maven, or any ecosystem through custom plugins
 
 <!--</div>-->
 
@@ -94,10 +94,10 @@ versu
 
 Versu is trusted by teams working with:
 
-- **Monorepos** — Manage versions across dozens of modules
-- **Microservices** — Keep services aligned and properly versioned
-- **Libraries** — Publish multiple packages with synchronized versions
-- **Enterprise Projects** — Scale versioning across large organizations
+- **Monorepos** - Manage versions across dozens of modules
+- **Microservices** - Keep services aligned and properly versioned
+- **Libraries** - Publish multiple packages with synchronized versions
+- **Enterprise Projects** - Scale versioning across large organizations
 
 ## Community
 

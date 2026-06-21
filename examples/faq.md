@@ -24,7 +24,7 @@ Yes, Versu is open source and free to use. Check out the [GitHub repository](htt
 
 ### Which Node.js version do I need?
 
-Versu requires Node.js 20 or higher. Check your version with `node --version`.
+Versu requires Node.js 24 or higher. Check your version with `node --version`.
 
 ### Can I install Versu globally?
 
@@ -169,7 +169,7 @@ Run `versu` without `--prerelease-mode` flag to create the official release.
 Use the GitHub Action:
 
 ```yaml
-- uses: versuhq/versu@v0
+- uses: versuhq/versu@v2
 ```
 
 ### Do I need to set up any secrets?

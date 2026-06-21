@@ -49,7 +49,7 @@ pnpm add -g @versu/cli
 If you want to use Versu in your CI/CD pipeline, add this to your GitHub Actions workflow:
 
 ```yaml
-- uses: versuhq/versu@v0
+- uses: versuhq/versu@v2
   with:
     # Your configuration here
 ```
@@ -72,7 +72,7 @@ You should see the version number displayed.
 
 ## System Requirements
 
-- **Node.js**: 20 or higher
+- **Node.js**: 24 or higher
 - **Git**: 2.0.0 or higher (for commit analysis)
 
 ## Next Steps

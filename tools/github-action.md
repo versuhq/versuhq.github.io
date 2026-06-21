@@ -7,7 +7,7 @@ Versu GitHub Action automates versioning in your CI/CD pipeline.
 Add to your GitHub Actions workflow:
 
 ```yaml
-- uses: versuhq/versu@v0
+- uses: versuhq/versu@v2
 ```
 
 ## Inputs
@@ -22,9 +22,13 @@ Add to your GitHub Actions workflow:
 | `append-snapshot` | Append `-SNAPSHOT` to the version (e.g., `1.0.0-SNAPSHOT`). | No | `false` |
 | `create-tags` | Automatically create Git tags for the new version. | No | `true` |
 | `generate-changelog` | Generate a changelog based on commits since the last version. | No | `true` |
+| `generate-release-notes` | Generate release notes summarizing all changes. | No | `true` |
 | `push-changes` | Push version changes and tags to the remote repository. | No | `true` |
 | `dry-run` | Run the action without making any changes (for testing). | No | `false` |
+| `commit-release-notes` | Whether to commit generated release notes. | No | `false` |
 | `adapter` | Specify a custom adapter for versioning. | No | (none) |
+| `changelog-filename` | Filename for generated changelog. | No | `CHANGELOG.md` |
+| `release-notes-filename` | Filename for generated release notes. | No | `RELEASE.md` |
 
 ## Outputs
 
@@ -34,6 +38,7 @@ Add to your GitHub Actions workflow:
 | `changed-modules` | A JSON array of modules that were changed and had their versions bumped. |
 | `created-tags` | A JSON array of Git tags that were created during the versioning process. |
 | `changelog-paths` | A JSON array of file paths where changelogs were generated or updated. |
+| `release-notes-paths` | A JSON array of file paths where release notes were generated. |
 
 ## Examples
 
@@ -67,14 +72,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
 
       # Install Plugin for your project type (e.g., Gradle, etc.)
       - name: Install Versu Gradle Plugin
         run: npm i -g @versu/plugin-gradle
 
       - name: Run Versu
-        uses: versuhq/versu@v0
+        uses: versuhq/versu@v2
 
       # Note: The above step will automatically
       # create tags and push changes by default.
@@ -116,18 +121,18 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
 
       # Install Plugin for your project type (e.g., Gradle, etc.)
       - name: Install Versu Gradle Plugin
         run: npm i -g @versu/plugin-gradle
 
       - name: Run Versu in Development Mode
-        uses: versuhq/versu@v0
+        uses: versuhq/versu@v2
         with:
           bump-unchanged: true
           append-snapshot: true
-          push-tags: false
+          create-tags: false
           push-changes: false
           generate-changelog: false
 
@@ -142,8 +147,8 @@ jobs:
 Make sure you're using the correct action name:
 
 ```yaml
-uses: versuhq/versu@v0  # Correct
-uses: versu@v0           # Wrong
+uses: versuhq/versu@v2  # Correct
+uses: versu@v2           # Wrong
 ```
 
 ### No Fetch Depth
