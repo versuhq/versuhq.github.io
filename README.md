@@ -1,3 +1,9 @@
+<!-- markdownlint-disable MD041 -->
+
+![versu](public/versu-hero.png)
+
+<!-- markdownlint-enable MD041 -->
+
 # Versu Documentation
 
 Welcome to the Versu documentation site!
