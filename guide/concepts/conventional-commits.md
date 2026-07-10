@@ -22,16 +22,20 @@ The standard types and their default version impacts are:
 | ------ | --------- | ----------------- |
 | `feat` | A new feature | Minor bump |
 | `fix` | A bug fix | Patch bump |
-| `docs` | Documentation only | No bump |
-| `style` | Changes that don't affect code meaning (whitespace, formatting) | No bump |
+| `docs` | Documentation only | Patch bump |
+| `style` | Changes that don't affect code meaning (whitespace, formatting) | Patch bump |
 | `refactor` | Code change that doesn't fix a bug or add a feature | Patch bump |
 | `perf` | Code change that improves performance | Patch bump |
-| `test` | Adding or updating tests | No bump |
-| `chore` | Changes to build process, dependencies, etc. | No bump |
-| `ci` | Changes to CI configuration | No bump |
-| `build` | Changes that affect the build system | No bump |
+| `test` | Adding or updating tests | Patch bump |
+| `chore` | Changes to build process, dependencies, etc. | Patch bump |
+| `ci` | Changes to CI configuration | Patch bump |
+| `build` | Changes that affect the build system | Patch bump |
 
 Custom types are also allowed and will default to a patch bump unless configured otherwise.
+
+::: info
+Out of the box, every recognized commit type triggers at least a patch bump - only `feat` (minor) and breaking changes (major) go higher. If you prefer types like `docs` or `chore` to not bump versions at all, map them to `"none"` in your configuration (see the example below).
+:::
 
 ::: tip
 
@@ -116,7 +120,7 @@ docs: update README with installation instructions
 ```
 
 <!-- markdownlint-disable-next-line MD036 -->
-**Result: No version bump**
+**Result: Patch version bump** (by default - configurable, see below)
 
 ## Best Practices
 
@@ -164,6 +168,8 @@ Versu reads your commit history and:
 You can customize how Versu interprets commit types and their impacts on versioning in your `versu.config.js`.
 
 From defining which types trigger which version bumps to specifying how dependency updates should be handled, you have full control over the versioning strategy.
+
+The example below keeps the defaults for code changes but disables bumps for non-code types (`docs`, `test`, `chore`, `style`, `ci`, `build`):
 
 ::: code-group
 

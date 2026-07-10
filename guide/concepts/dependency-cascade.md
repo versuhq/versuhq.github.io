@@ -46,12 +46,12 @@ cli       | (unchanged)    | Cascade
 For modules that depend on changed modules:
 
 ```javascript
-// Cascade Rule: "patch"
-If dependency was bumped → dependent gets PATCH bump (default)
+// Default cascade rule: dependents get the SAME bump as their dependency
+If dependency got a MINOR bump → dependent gets a MINOR bump
 
 Example:
 core:    1.0.0 → 1.1.0  (MINOR bump)
-cli:     1.2.0 → 1.2.1  (PATCH bump due to cascade)
+cli:     1.2.0 → 1.3.0  (MINOR bump due to cascade)
 ```
 
 ### 4. Recursive Cascade
@@ -61,9 +61,9 @@ The cascade applies recursively through the dependency tree:
 ```text
     core (1.0.0 → 1.1.0)
       ↓
-    cli (1.2.0 → 1.2.1)
+    cli (1.2.0 → 1.3.0)
       ↓
-    web (0.5.0 → 0.5.1)
+    web (0.5.0 → 0.6.0)
 ```
 
 ## Cascade Strategies
@@ -97,10 +97,27 @@ export default {
 
 ```text
 core:    1.0.0 → 2.0.0  (BREAKING, MAJOR bump)
-cli:     1.2.0 → 1.2.1  (PATCH bump due to cascade)
+cli:     1.2.0 → 2.0.0  (MAJOR bump due to cascade)
 ```
 
-This is fully customizable and what bump to apply when a dependency is updated.
+This is fully customizable: for each dependency bump type you choose which bump the dependents receive (or `"none"` to stop the cascade). Instead of a full mapping you can also use the shorthand `"match"`, which is equivalent to the default same-level behavior:
+
+::: code-group
+
+```javascript [versu.config.js]
+export default {
+  versioning: {
+    cascadeRules: {
+      stable: "match",
+      prerelease: "match",
+    },
+  },
+};
+```
+
+:::
+
+A common customization in large monorepos is downgrading feature cascades, so a `minor` bump in a dependency only produces a `patch` bump in its dependents - see [Monorepo Setup](/guide/advanced/monorepo#tuning-the-cascade).
 
 ## Example Scenarios
 

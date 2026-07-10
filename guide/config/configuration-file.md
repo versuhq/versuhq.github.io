@@ -108,6 +108,8 @@ export default {
       //... other custom commit types
     },
     cascadeRules: {
+      // Each rule set can also be the shorthand string "match",
+      // meaning dependents get the same bump as their dependency
       stable: {
         // major, minor, patch, or none
         major: "major",
@@ -126,6 +128,10 @@ export default {
 };
 ```
 
+:::
+
+::: info Defaults
+Unless overridden, every recognized commit type triggers at least a patch bump (`feat` triggers minor; breaking changes trigger major), unknown types fall back to `unknownCommitType` (patch), and cascade bumps match the dependency's bump level. The example above deviates from the defaults by mapping non-code types (`docs`, `test`, `chore`, `style`, `ci`, `build`) to `"none"`.
 :::
 
 ### `changelog` (optional)
@@ -161,7 +167,7 @@ export default {
 
 <sup>2</sup> The `options` property allows you to specify various options for how the changelog is generated. This can include settings for how commit messages are formatted, how sections are organized, and any other customization options provided by the underlying changelog generation library.
 
-For more details on chengelog configuration check out the [changelog configuration guide](/guide/config/changelog) and the [conventional-changelog-writer documentation][conventional-changelog-writer].
+For more details on changelog configuration check out the [changelog configuration guide](/guide/config/changelog) and the [conventional-changelog-writer documentation][conventional-changelog-writer].
 
 ## Alternative Formats
 

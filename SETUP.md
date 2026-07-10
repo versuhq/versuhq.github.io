@@ -35,7 +35,7 @@ npm run docs:preview
 ## Folder Structure
 
 ```text
-docs-vitepress/
+versuhq.github.io/
 ├── .vitepress/
 │   ├── config.mts          # VitePress configuration
 │   └── theme/
@@ -56,11 +56,16 @@ docs-vitepress/
 │   │   ├── changelog.md
 │   │   └── prerelease.md
 │   └── advanced/
+│       ├── plugins.md
+│       ├── adapters.md
+│       └── monorepo.md
 ├── tools/
 │   ├── cli.md
 │   ├── github-action.md
 │   ├── plugins.md
-│   └── gradle-plugin.md
+│   ├── gradle-plugin.md
+│   ├── maven-plugin.md
+│   └── node-plugin.md
 ├── api/
 │   ├── core.md
 │   ├── services.md
@@ -69,7 +74,7 @@ docs-vitepress/
 ├── examples/
 │   ├── basic-setup.md
 │   ├── monorepo-setup.md
-│   ├── github-actions.md
+│   ├── quick-reference.md
 │   └── faq.md
 ├── package.json
 ├── .gitignore
@@ -162,7 +167,7 @@ const hello: string = "world"
 ```
 
 ```bash
-npm install versu
+npm install @versu/cli
 ```
 
 ```javascript

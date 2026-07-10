@@ -34,21 +34,27 @@ The expected output is a JSON object with the following example structure:
 
 ```json
 {
-  "core": {
+  ":": {
+    "name": "my-monorepo",
+    "path": ".",
+    "affectedModules": [],
+    "type": "root"
+  },
+  ":packages:core": {
     "name": "core",
     "path": "packages/core",
     "version": "1.2.3",
-    "affectedModules": ["cli", "plugin-gradle"],
+    "affectedModules": [":packages:cli", ":packages:plugin-gradle"],
     "type": "module"
   },
-  "cli": {
+  ":packages:cli": {
     "name": "cli",
     "path": "packages/cli",
     "version": "0.5.0",
     "affectedModules": [],
     "type": "module"
   },
-  "plugin-gradle": {
+  ":packages:plugin-gradle": {
     "name": "plugin-gradle",
     "path": "packages/plugin-gradle",
     "version": "0.4.0",
@@ -58,7 +64,9 @@ The expected output is a JSON object with the following example structure:
 }
 ```
 
-In this example, we have three modules: `core`, `cli`, and `plugin-gradle`. The `core` module is a dependency for both `cli` and `plugin-gradle`, so it lists them in its `affectedModules` array.
+Each key is the module's unique ID in Gradle-style notation: `:` is the root and nested paths become colon-separated segments (e.g., `:packages:core`). Exactly one module of type `root` is required.
+
+In this example, we have the root plus three modules: `core`, `cli`, and `plugin-gradle`. The `core` module is a dependency for both `cli` and `plugin-gradle`, so it lists them in its `affectedModules` array.
 
 ### Module Properties
 
@@ -138,35 +146,46 @@ Module Dependency Graph:
 
 ```json
 {
-  "common": {
+  ":": {
+    "name": "my-monorepo",
+    "path": ".",
+    "affectedModules": [],
+    "type": "root"
+  },
+  ":packages:common": {
     "name": "common",
     "path": "packages/common",
     "version": "1.0.0",
-    "affectedModules": ["auth", "api", "web", "mobile"],
+    "affectedModules": [
+      ":packages:auth",
+      ":packages:api",
+      ":packages:web",
+      ":packages:mobile"
+    ],
     "type": "module"
   },
-  "auth": {
+  ":packages:auth": {
     "name": "auth",
     "path": "packages/auth",
     "version": "1.0.0",
-    "affectedModules": ["api", "web", "mobile"],
+    "affectedModules": [":packages:api", ":packages:web", ":packages:mobile"],
     "type": "module"
   },
-  "api": {
+  ":packages:api": {
     "name": "api",
     "path": "packages/api",
     "version": "1.0.0",
-    "affectedModules": ["web", "mobile"],
+    "affectedModules": [":packages:web", ":packages:mobile"],
     "type": "module"
   },
-  "web": {
+  ":packages:web": {
     "name": "web",
     "path": "packages/web",
     "version": "1.0.0",
     "affectedModules": [],
     "type": "module"
   },
-  "mobile": {
+  ":packages:mobile": {
     "name": "mobile",
     "path": "packages/mobile",
     "version": "1.0.0",

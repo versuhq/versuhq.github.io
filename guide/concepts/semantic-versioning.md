@@ -139,7 +139,7 @@ versu run --prerelease-mode --timestamp-versions
 versu run --append-snapshot
 ```
 
-In addition, you can customize versioning rules and their effect on version bumps in your `versu.config.js`:
+In addition, you can customize versioning rules and their effect on version bumps in your `versu.config.js`. The example below keeps the defaults for code changes but disables bumps for non-code types (by default, all recognized types trigger at least a patch bump):
 
 ::: code-group
 

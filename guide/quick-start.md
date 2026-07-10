@@ -66,7 +66,7 @@ npx @versu/cli run
 ```
 
 ::: info
-If you have a local or global installion in your system, `npx` will search for the local version first and fallback to the global one if not found.
+If you have a local or global installation in your system, `npx` will search for the local version first and fallback to the global one if not found.
 :::
 
 Versu will:
@@ -117,8 +117,10 @@ Check that your commits follow [Conventional Commits](https://conventionalcommit
 ```text
 feat: add new feature    # ✓ Triggers minor bump
 fix: resolve bug         # ✓ Triggers patch bump
-docs: update README      # ✗ No version bump (unless configured otherwise)
+docs: update README      # ✓ Triggers patch bump (default - configurable)
 ```
+
+Also make sure there are new commits since the last release tag - if nothing changed, there is nothing to bump.
 
 ### Dependencies not updated?
 

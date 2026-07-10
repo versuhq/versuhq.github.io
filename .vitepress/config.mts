@@ -50,7 +50,7 @@ export default withMermaid(
           items: [
             { text: "CLI", link: "/tools/cli" },
             { text: "GitHub Action", link: "/tools/github-action" },
-            //{ text: 'Plugins', link: '/tools/plugins' },
+            { text: "Plugins", link: "/tools/plugins" },
           ],
         },
         { text: "Examples", link: "/examples/basic-setup" },
@@ -101,23 +101,26 @@ export default withMermaid(
               },
             ],
           },
-          /*{
-          text: 'Advanced',
-          items: [
-            { text: 'Plugin Development', link: '/guide/advanced/plugins' },
-            { text: 'Custom Adapters', link: '/guide/advanced/adapters' },
-            { text: 'Monorepo Setup', link: '/guide/advanced/monorepo' },
-          ]
-        },*/
+          {
+            text: "Advanced",
+            items: [
+              {
+                text: "Plugin Development",
+                link: "/guide/advanced/plugins",
+              },
+              { text: "Custom Adapters", link: "/guide/advanced/adapters" },
+              { text: "Monorepo Setup", link: "/guide/advanced/monorepo" },
+            ],
+          },
         ],
         "/api/": [
           {
             text: "API Reference",
             items: [
               { text: "Core Package", link: "/api/core" },
-              /*{ text: 'Services', link: '/api/services' },
-            { text: 'Utilities', link: '/api/utilities' },
-            { text: 'Types', link: '/api/types' },*/
+              { text: "Services", link: "/api/services" },
+              { text: "Utilities", link: "/api/utilities" },
+              { text: "Types", link: "/api/types" },
             ],
           },
         ],
@@ -127,8 +130,10 @@ export default withMermaid(
             items: [
               { text: "CLI", link: "/tools/cli" },
               { text: "GitHub Action", link: "/tools/github-action" },
-              /*{ text: 'Plugins', link: '/tools/plugins' },
-            { text: 'Gradle Plugin', link: '/tools/gradle-plugin' },*/
+              { text: "Plugins", link: "/tools/plugins" },
+              { text: "Gradle Plugin", link: "/tools/gradle-plugin" },
+              { text: "Maven Plugin", link: "/tools/maven-plugin" },
+              { text: "Node Plugin", link: "/tools/node-plugin" },
             ],
           },
         ],

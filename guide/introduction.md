@@ -34,12 +34,12 @@ Automatically generate beautiful changelogs from your commit history. Customize 
 
 ### 🔌 Extensible Architecture
 
-Support any build system or language ecosystem through our plugin architecture. Built-in support for:
+Support any build system or language ecosystem through our plugin architecture. Official plugins exist for:
 
-<!--- **npm** (JavaScript/TypeScript)-->
-- **Gradle** (JVM languages)
-<!--- **Maven** (Java)-->
-- Custom ecosystems via plugins
+- **Node.js** (npm, yarn and pnpm workspaces) via [@versu/plugin-node](/tools/node-plugin)
+- **Gradle** (Groovy & Kotlin DSL) via [@versu/plugin-gradle](/tools/gradle-plugin)
+- **Maven** via [@versu/plugin-maven](/tools/maven-plugin)
+- Custom ecosystems via [your own plugins](/guide/advanced/plugins)
 
 ### ⚡ Multiple Interfaces
 

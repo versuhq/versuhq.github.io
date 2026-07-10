@@ -44,9 +44,16 @@ npx @versu/cli --version
 
 ## NPM Scripts
 
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
+```json
+{
+  "scripts": {
+    "release": "versu run",
+    "release:dry": "versu run --dry-run",
+    "release:alpha": "versu run --prerelease-mode --prerelease-id alpha",
+    "release:local": "versu run --no-push-changes --no-create-tags"
+  }
+}
+```
 
 ## Minimal Config
 
@@ -60,9 +67,28 @@ export default {
 
 ## Changelog Config
 
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
+```javascript
+export default {
+  changelog: {
+    root: {
+      // Root CHANGELOG.md
+      context: {
+        /* template variables */
+      },
+      options: {
+        /* conventional-changelog-writer options */
+      },
+    },
+    module: {
+      // Per-module CHANGELOG.md (monorepos)
+      context: {},
+      options: {},
+    },
+  },
+};
+```
+
+See [Changelog Generation](/guide/config/changelog) for a complete example.
 
 ## Conventional Commits
 
@@ -70,7 +96,7 @@ This page is still under construction. Check back soon for the full example!
 feat: add new feature               # → Minor bump
 fix: resolve bug                    # → Patch bump
 feat!: breaking change              # → Major bump
-docs: update documentation          # → No bump
+docs: update documentation          # → Patch bump (default)
 BREAKING CHANGE: description        # → Major bump
 ```
 
@@ -87,22 +113,24 @@ From 1.0.0:
 
 ```javascript
 export default {
-  versionRules: {
+  versioning: {
     // ...
-    dependencyBumps: {
+    cascadeRules: {
       // Bump dependents with the same level
-      major: 'major',
-      minor: 'minor',
-      patch: 'patch'
-    }
-  }
-}
+      stable: {
+        major: "major",
+        minor: "minor",
+        patch: "patch",
+      },
+    },
+  },
+};
 ```
 
 ## GitHub Action
 
 ```yaml
-- uses: versuhq/versu@v0
+- uses: versuhq/versu@v3
 ```
 
 ## File Locations
@@ -116,35 +144,37 @@ CHANGELOG.md          # Generated changelog
 
 ## Exit Codes
 
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
+| Code | Meaning |
+| ---- | ------- |
+| `0` | Success - including runs where all versions were already up to date |
+| `2` | Failure - versioning error (e.g., dirty working directory, plugin not found) or invalid command usage |
 
 ## Common Issues
 
 ### No version bumped?
 
 - Check commits follow Conventional Commits
-- Verify module path in config
+- Verify the commits touch files under the module's path
 - Use `DEBUG=versu*` to debug
 
 ### Cascade not working?
 
-- Verify dependency list in config
+- Verify dependencies between modules are detected (run with `--dry-run`)
 - Check for circular dependencies
-- Review dependencyBumps setting
+- Review the `cascadeRules` setting
 
 ### Changelog not generated?
 
-::: warning
-This page is still under construction. Check back soon for the full example!
-:::
+- Changelogs are only written when at least one module was bumped
+- Make sure `--no-generate-changelog` isn't set (generation is on by default)
+- `--dry-run` calculates versions but never writes files
+- Looking for a different filename? Set it with `--changelog-filename`
 
 ## Links
 
 - **GitHub**: <https://github.com/versuhq/versu>
 - **NPM**: <https://www.npmjs.com/package/@versu/core>
-- **Docs**: <https://vitepress.dev/>
+- **Docs**: <https://versuhq.github.io/>
 - **Issues**: <https://github.com/versuhq/versu/issues>
 
 ## Resources

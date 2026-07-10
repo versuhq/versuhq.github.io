@@ -7,7 +7,7 @@ Versu GitHub Action automates versioning in your CI/CD pipeline.
 Add to your GitHub Actions workflow:
 
 ```yaml
-- uses: versuhq/versu@v2
+- uses: versuhq/versu@v3
 ```
 
 ## Inputs
@@ -18,7 +18,7 @@ Add to your GitHub Actions workflow:
 | `prerelease-id` | Custom identifier for pre-release versions (e.g., `alpha`, `beta`). | No | `alpha` |
 | `bump-unchanged` | Bump version even if there are no changes since the last release. | No | `false` |
 | `add-build-metadata` | Add build metadata to the version (e.g., `1.0.0+build.123`). | No | `false` |
-| `timestamp-versions` | Append a timestamp to the version (e.g., `1.0.0-20240101.123456`). | No | `false` |
+| `timestamp-versions` | Use timestamp-based pre-release identifiers (e.g., `1.1.0-alpha.20240101.1234.0`). Requires `prerelease-mode`. | No | `false` |
 | `append-snapshot` | Append `-SNAPSHOT` to the version (e.g., `1.0.0-SNAPSHOT`). | No | `false` |
 | `create-tags` | Automatically create Git tags for the new version. | No | `true` |
 | `generate-changelog` | Generate a changelog based on commits since the last version. | No | `true` |
@@ -29,6 +29,8 @@ Add to your GitHub Actions workflow:
 | `adapter` | Specify a custom adapter for versioning. | No | (none) |
 | `changelog-filename` | Filename for generated changelog. | No | `CHANGELOG.md` |
 | `release-notes-filename` | Filename for generated release notes. | No | `RELEASE.md` |
+| `strip-module-prefix` | Strip the module name from tags when the project has a single module. | No | `false` |
+| `tag-version-prefix` | Prefix to add to tag versions (e.g., `v`). | No | (empty) |
 
 ## Outputs
 
@@ -52,6 +54,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write # Required to push commits and tags
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -61,7 +66,7 @@ jobs:
         with:
           fetch-depth: 0  # Full history for commit analysis
 
-      #### Setup Project Requiremnts ########
+      #### Setup Project Requirements ########
 
       # Add any additional setup steps here
       # such as installing dependencies or
@@ -79,7 +84,7 @@ jobs:
         run: npm i -g @versu/plugin-gradle
 
       - name: Run Versu
-        uses: versuhq/versu@v2
+        uses: versuhq/versu@v3
 
       # Note: The above step will automatically
       # create tags and push changes by default.
@@ -110,7 +115,7 @@ jobs:
           # Full history for commit analysis
           fetch-depth: 0
 
-      #### Setup Project Requiremnts ########
+      #### Setup Project Requirements ########
 
       # Add any additional setup steps here
       # such as installing dependencies or
@@ -128,7 +133,7 @@ jobs:
         run: npm i -g @versu/plugin-gradle
 
       - name: Run Versu in Development Mode
-        uses: versuhq/versu@v2
+        uses: versuhq/versu@v3
         with:
           bump-unchanged: true
           append-snapshot: true
@@ -147,8 +152,8 @@ jobs:
 Make sure you're using the correct action name:
 
 ```yaml
-uses: versuhq/versu@v2  # Correct
-uses: versu@v2           # Wrong
+uses: versuhq/versu@v3  # Correct
+uses: versu@v3           # Wrong
 ```
 
 ### No Fetch Depth
@@ -156,7 +161,7 @@ uses: versu@v2           # Wrong
 Always include full history:
 
 ```yaml
-- uses: actions/checkout@v4
+- uses: actions/checkout@v6
   with:
     fetch-depth: 0  # Important!
 ```

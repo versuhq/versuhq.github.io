@@ -72,7 +72,7 @@ Examples: `feat(auth): add login`, `fix(api): resolve bug`
 
 ### Does every commit need a type?
 
-No. Commits without types will be ignored for versioning.
+It's strongly recommended. Commits without a recognized type (including typeless commits) fall back to the `unknownCommitType` rule, which triggers a patch bump by default - set it to `none` in your configuration to ignore them instead. Typeless commits (e.g., merge commits) are always excluded from generated changelogs.
 
 ### Can I use custom types?
 
@@ -81,15 +81,15 @@ Yes! Configure custom types in `versu.config.js`:
 ```javascript
 export default {
   // Other configuration options
-  versionRules: {
-    //... other version rules
-    commitTypeBumps: {
-      feat: "minor", // major, minor, patch, or ignore
-      fix: "patch",
-      //...
+  versioning: {
+    //... other versioning options
+    commitTypes: {
+      myCustomType: {
+        stable: "minor", // major, minor, patch, or none
+        prerelease: "preminor", // premajor, preminor, prepatch, prerelease, or none
+      },
       //... other custom commit types
     },
-    //... other version rules
   },
 };
 ```
@@ -169,7 +169,7 @@ Run `versu` without `--prerelease-mode` flag to create the official release.
 Use the GitHub Action:
 
 ```yaml
-- uses: versuhq/versu@v2
+- uses: versuhq/versu@v3
 ```
 
 ### Do I need to set up any secrets?
@@ -248,7 +248,7 @@ No! Versu is optimized and typically completes in seconds.
 
 ### Does it need full Git history?
 
-Versu only needs history since last release, but `--fetch-depth: 0` is recommended in CI for safety.
+Versu only needs history since the last release, but `fetch-depth: 0` on `actions/checkout` is recommended in CI so all tags and commits are available.
 
 ## Compatibility
 

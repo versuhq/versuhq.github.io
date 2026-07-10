@@ -52,7 +52,7 @@ versu run --help
 Display the version of the CLI.
 
 ```bash
-versu run --version
+versu --version
 ```
 
 #### `--adapter <adapter>`
@@ -99,6 +99,22 @@ Bump the version even if there are no changes detected. This can be useful in sc
 versu run --bump-unchanged
 ```
 
+#### `--changelog-filename <filename>`
+
+Set the filename for generated changelogs (default: `CHANGELOG.md`).
+
+```bash
+versu run --changelog-filename HISTORY.md
+```
+
+#### `--commit-release-notes`
+
+Include the generated release notes in the commit when pushing changes. By default release notes are generated but left out of the commit.
+
+```bash
+versu run --commit-release-notes
+```
+
 #### `--create-tags`
 
 Automatically create Git tags for the new version. This is useful if you are releasing your project and want to have a tagged release in your Git history.
@@ -121,6 +137,14 @@ Run the versioning process without making any changes to files or Git history. T
 versu run --dry-run
 ```
 
+#### `--from-ref <ref>`
+
+Analyze commits starting from the given git reference (e.g., a tag or commit SHA) instead of each module's last release tag.
+
+```bash
+versu run --from-ref v1.0.0
+```
+
 #### `--generate-changelog`
 
 Generate a changelog based on the commits since the last version. This is useful for keeping a record of changes in your project and communicating them to users.
@@ -135,6 +159,20 @@ You can disable changelog generation by using the `--no-generate-changelog` opti
 versu run --no-generate-changelog
 ```
 
+#### `--generate-release-notes`
+
+Generate release notes summarizing all changes (default: enabled, written to `RELEASE.md`).
+
+```bash
+versu run --generate-release-notes
+```
+
+You can disable release notes generation by using the `--no-generate-release-notes` option:
+
+```bash
+versu run --no-generate-release-notes
+```
+
 #### `--prerelease-mode`
 
 Enable prerelease mode, which allows you to generate pre-release versions (e.g., `1.0.0-alpha.1`). This is useful for testing and development purposes before a stable release.
@@ -145,7 +183,7 @@ versu run --prerelease-mode
 
 ::: info
 
-Default prerelease identifier is `alpha`, but you can customize it in your configuration file using the `--prerelease-id` option.
+The default prerelease identifier is `alpha`, but you can customize it with the `--prerelease-id` option.
 
 :::
 
@@ -155,6 +193,14 @@ Specify a custom prerelease identifier to use when generating pre-release versio
 
 ```bash
 versu run --prerelease-mode --prerelease-id beta
+```
+
+#### `--provider <provider>`
+
+Set the version control provider (e.g., `github`, `gitlab`), used for provider-specific features like issue links in changelogs. Auto-detected from the remote URL if not provided.
+
+```bash
+versu run --provider github
 ```
 
 #### `--push-changes`
@@ -169,6 +215,38 @@ You can disable pushing changes by using the `--no-push-changes` option:
 
 ```bash
 versu run --no-push-changes
+```
+
+#### `--release-notes-filename <filename>`
+
+Set the filename for generated release notes (default: `RELEASE.md`).
+
+```bash
+versu run --release-notes-filename NOTES.md
+```
+
+#### `--sequential-tag-push`
+
+Push tags one at a time instead of all at once. Useful for large repositories or CI environments where each tag push should trigger its own workflow.
+
+```bash
+versu run --sequential-tag-push
+```
+
+#### `--strip-module-prefix`
+
+Strip the module name from tags when the project has a single module, producing tags like `1.2.3` (or `v1.2.3` with a prefix) instead of `mymodule@1.2.3`.
+
+```bash
+versu run --strip-module-prefix
+```
+
+#### `--tag-version-prefix <prefix>`
+
+Add a prefix to the version part of tags (e.g., `v` produces `mymodule@v1.2.3`). Default: empty.
+
+```bash
+versu run --tag-version-prefix v
 ```
 
 #### `--timestamp-versions`
