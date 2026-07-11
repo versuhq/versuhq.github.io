@@ -44,10 +44,10 @@ Modified files:
 
 Determine version change for each affected module:
 
-| Module   | Type of Change | Bump Type             |
-| -------- | -------------- | --------------------- |
-| `common` | feat           | MINOR (2.3.1 → 2.4.0) |
-| `auth`   | (unchanged)    | Cascade               |
+| Module   | Type of Change | Bump Type |
+| -------- | -------------- | --------- |
+| `common` | feat           | MINOR     |
+| `auth`   | (unchanged)    | Cascade   |
 
 ### 3. Apply Cascade Rules
 

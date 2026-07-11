@@ -44,17 +44,17 @@ Each key is a module ID in Gradle-style notation (`:` for the root, `:core`, `:l
 
 | Field | Required | Description |
 | ----- | -------- | ----------- |
-| `name` | ✅ | Human-readable module name. |
-| `path` | ✅ | Relative path from the repository root to the module directory. |
-| `type` | ✅ | `root` for the top-level project, `module` for subprojects. Exactly one `root` is required. |
-| `affectedModules` | ✅ | Module IDs bumped in cascade when this module changes. |
-| `version` | | Current semantic version. Defaults to `0.0.0` when omitted. |
-| `declaredVersion` | ✅ | Whether the version is explicitly declared in build configuration. Modules where this is `false` are analyzed and cascaded, but get no version writes or release tags. |
+| `name` | Yes | Human-readable module name. |
+| `path` | Yes | Relative path from the repository root to the module directory. |
+| `type` | Yes | `root` for the top-level project, `module` for subprojects. Exactly one `root` is required. |
+| `affectedModules` | Yes | Module IDs bumped in cascade when this module changes. |
+| `version` | No | Current semantic version. Defaults to `0.0.0` when omitted. |
+| `declaredVersion` | Yes | Whether the version is explicitly declared in build configuration. Modules where this is `false` are analyzed and cascaded, but get no version writes or release tags. |
 
 The manual adapter has the lowest precedence: it only activates when the file exists and no other installed adapter accepts the repository. You can also force it with `--adapter manual`.
 
-::: warning
-The manual adapter identifies modules and calculates bumps, but it has no build files to update - version changes are tracked through git tags and changelogs rather than written back to build configuration.
+::: warning Versions are tracked in this file
+The manual adapter has no build files to inspect or update, so `.versu/project-information.json` doubles as the version store: on each release, Versu writes the calculated versions back into the `version` fields of this same file. Keep it committed so the next run starts from the right versions. If your actual build files also declare versions, keeping them in sync is up to you.
 :::
 
 ## Implementing an Adapter

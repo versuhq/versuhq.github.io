@@ -4,7 +4,7 @@ Learn how to configure Versu for your project.
 
 ## Basic Structure
 
-Versu uses cosmiconfig to load configuration from various file formats. It supports several file types, including Typescript and JavaScript files. The configuration file should export an object with the following structure:
+Versu uses [cosmiconfig] to load configuration from various file formats. It supports several file types, including Typescript and JavaScript files. The configuration file should export an object with the following structure:
 
 ::: code-group
 
@@ -169,9 +169,40 @@ export default {
 
 For more details on changelog configuration check out the [changelog configuration guide](/guide/config/changelog) and the [conventional-changelog-writer documentation][conventional-changelog-writer].
 
+### `release` (optional)
+
+The `release` configuration customizes how release notes (`RELEASE.md` files) are generated. It has exactly the same structure as [`changelog`](#changelog-optional) - separate `root` and `module` sections, each accepting a `context` and `options` passed to [conventional-changelog-writer] - but it applies to the release notes renderer instead of the changelog renderer.
+
+::: code-group
+
+```javascript [versu.config.js]
+export default {
+  // Other configuration options
+  release: {
+    // Release notes configuration options
+    root: {
+      // Root release notes configuration (optional)
+      context: { /* */ }, // Context<Commit>
+      options: { /* */ }, // Options<Commit>
+    },
+    module: {
+      // Module release notes configuration (optional)
+      context: { /* */ }, // Context<Commit>
+      options: { /* */ }, // Options<Commit>
+    },
+  },
+};
+```
+
+:::
+
+This lets you style changelogs and release notes independently - for example, a full historical `CHANGELOG.md` with compare links, and leaner release notes (default `RELEASE.md`) used as the body of a GitHub release.
+
+For more details on release notes configuration check out the [release notes guide](/guide/config/release).
+
 ## Alternative Formats
 
-Versu uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to load configuration files. This allows you to use different file formats and locations for your configuration. Below are examples of how to structure your configuration file in different formats.
+Versu uses [cosmiconfig] to load configuration files. This allows you to use different file formats and locations for your configuration. Below are examples of how to structure your configuration file in different formats.
 
 ::: warning
 
@@ -188,6 +219,7 @@ export default {
   plugins: [ /* ... */ ],
   versioning: { /* ... */ },
   changelog: { /* ... */ },
+  release: { /* ... */ },
 };
 ```
 
@@ -202,6 +234,7 @@ module.exports = {
   plugins: [ /* ... */ ],
   versioning: { /* ... */ },
   changelog: { /* ... */ },
+  release: { /* ... */ },
 };
 ```
 
@@ -218,6 +251,7 @@ export default {
   plugins: [ /* ... */ ],
   versioning: { /* ... */ },
   changelog: { /* ... */ },
+  release: { /* ... */ },
 } satisfies VersuConfig;
 ```
 
@@ -234,3 +268,4 @@ export default {
 Ready to customize your changelog? Check out the [Changelog Generation Guide](/guide/config/changelog)!
 
 [conventional-changelog-writer]: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer
+[cosmiconfig]: https://github.com/cosmiconfig/cosmiconfig

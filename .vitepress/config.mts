@@ -100,6 +100,7 @@ export default withMermaid(
                 link: "/guide/config/configuration-file",
               },
               { text: "Changelog Generation", link: "/guide/config/changelog" },
+              { text: "Release Notes", link: "/guide/config/release" },
               {
                 text: "Pre-release Versions",
                 link: "/guide/config/prerelease",

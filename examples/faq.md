@@ -107,13 +107,14 @@ A change that requires users to update their code. Indicate with:
 
 ### How does cascade work?
 
-When a dependency changes, all modules that depend on it automatically get versioned too.
+When a dependency changes, all modules that depend on it automatically get versioned too. With the default cascade rules, dependents get the same bump level:
 
-```text
-Module A (1.0.0 → 1.1.0)
-    ↓
-Module B (1.0.0 → 1.0.1)  ← Cascaded patch bump
+```mermaid
+flowchart TD
+    A["Module A<br>1.0.0 → 1.1.0<br>(minor bump)"] --> B["Module B<br>1.0.0 → 1.1.0<br>(cascaded minor bump)"]
 ```
+
+See [Dependency Cascade](/guide/concepts/dependency-cascade) for the full picture.
 
 ### Can I disable cascade for specific modules?
 

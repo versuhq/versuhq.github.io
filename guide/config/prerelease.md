@@ -60,7 +60,7 @@ A typical cycle looks like this:
 Pre-release versions are treated as **temporary versions**: Versu skips git tag creation for them, so the baseline for commit analysis remains the last *stable* tag. That's why each pre-release run recalculates from the full set of changes since the last release - and why promoting to stable "just works". Snapshot versions (`--append-snapshot`) behave the same way.
 :::
 
-Two flags are only meaningful in pre-release mode:
+Besides `--prerelease-id`, two more flags only take effect in pre-release mode (they are silently ignored otherwise):
 
 - `--bump-unchanged` - also bumps modules with no detected changes, so every module of a monorepo gets a pre-release version.
 - `--timestamp-versions` - see [Timestamp Versions](#timestamp-versions) below.
@@ -114,12 +114,17 @@ The `prerelease` bump type increments only the pre-release counter (`1.3.0-alpha
 You can add short SHA as build metadata to a version:
 
 ```bash
-versu run --prerelease-mode --add-build-metadata
+versu run --add-build-metadata
 ```
 
-Result: `1.0.0-alpha.1+build.abc1234`
+Unlike the flags above, `--add-build-metadata` is not tied to pre-release mode - it appends the metadata to whichever version is produced:
 
-Build metadata (everything after `+`) does not affect version precedence - it's informational only, ideal for tracing a build back to its commit.
+| Mode | Result |
+| --- | --- |
+| Stable | `1.3.0+build.abc1234` |
+| Pre-release | `1.3.0-alpha.0+build.abc1234` |
+
+Build metadata (everything after `+`) does not affect version precedence - it's informational only, ideal for tracing a build back to its commit. Note that when enabled, even modules without changes get their version updated to carry the metadata.
 
 ### Timestamp Versions
 
@@ -134,7 +139,7 @@ Result: `1.1.0-alpha.20260710.1430.0`
 Timestamped identifiers are unique and sort chronologically, which makes them a good fit for continuous pre-release publishing (e.g., nightly or per-merge builds) where plain `alpha.0` counters would collide across runs.
 
 ::: warning
-`--timestamp-versions` requires `--prerelease-mode` to be enabled.
+`--timestamp-versions` has no effect unless `--prerelease-mode` is enabled.
 :::
 
 ## Best Practices

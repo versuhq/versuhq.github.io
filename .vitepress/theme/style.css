@@ -78,3 +78,17 @@
   display: flex;
   justify-content: center;
 }
+
+/*
+ * Mermaid measures HTML labels outside .vp-doc, so VitePress paragraph
+ * styles (margin, line-height) inflate rendered labels past the measured
+ * size and clip multi-line text. Neutralize them inside diagrams.
+ */
+.vp-doc .mermaid p {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.vp-doc .mermaid svg {
+  overflow: visible;
+}
