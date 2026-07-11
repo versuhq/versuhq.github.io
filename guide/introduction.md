@@ -53,20 +53,15 @@ Choose how to integrate Versu:
 
 Versu follows a simple workflow:
 
-```text
-Your Project
-    ↓
-Analyze Commits (Conventional Commits)
-    ↓
-Determine Version Bumps
-    ↓
-Resolve Dependency Cascades
-    ↓
-Generate Changelogs
-    ↓
-Update Version Files
-    ↓
-Ready to Release!
+```mermaid
+flowchart TD
+    A["Your Project"] --> B["Analyze Commits<br>(Conventional Commits)"]
+    B --> C["Determine Version Bumps"]
+    C --> D["Resolve Dependency Cascades"]
+    D --> E["Update Version Files"]
+    E --> F["Generate Changelogs & Release Notes"]
+    F --> G["Commit, Tag & Push"]
+    G --> H(["Ready to Release! 🚀"])
 ```
 
 ## When to Use Versu

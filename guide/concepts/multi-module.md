@@ -2,24 +2,53 @@
 
 Versu is built for monorepos and multi-module projects where each module can be versioned independently.
 
+Throughout this page we'll use a running example for a monorepo with five modules:
+
+- `auth` - authentication module
+- `api` - API module
+- `common` - shared utilities module
+- `web` - web frontend module
+- `mobile` - mobile frontend module
+
+They have the following dependency graph:
+
+```mermaid
+flowchart TD
+    common --> auth
+    auth --> api
+    api --> web
+    api --> mobile
+```
+
+In this scenario, `auth` depends on `common`, `api` depends on `auth`, and both `web` and `mobile` depend on `api`.
+With Versu when a module changes, all of its dependents are affected and will be versioned accordingly.
+
 ## Understanding Structure
 
-A typical multi-module project looks like:
+Our example project looks like:
 
 ```text
 my-monorepo/
 ├── packages/
-│   ├── core/
+│   ├── common/
 │   │   ├── src/
 │   │   ├── package.json
 │   │   └── CHANGELOG.md
-│   ├── cli/
+│   ├── auth/
 │   │   ├── src/
 │   │   ├── package.json
 │   │   └── CHANGELOG.md
-│   └── plugin-gradle/
+│   ├── api/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── CHANGELOG.md
+│   ├── web/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── CHANGELOG.md
+│   └── mobile/
 │       ├── src/
-│       ├── build.gradle
+│       ├── package.json
 │       └── CHANGELOG.md
 ├── versu.config.js
 ├── CHANGELOG.md
@@ -30,7 +59,7 @@ my-monorepo/
 
 Plugins are responsible for identifying all modules in a multi-module project. Each plugin needs to follow a contract to provide module information to Versu.
 
-The expected output is a JSON object with the following example structure:
+For our example project, the expected output is a JSON object with the following structure:
 
 ```json
 {
@@ -38,35 +67,67 @@ The expected output is a JSON object with the following example structure:
     "name": "my-monorepo",
     "path": ".",
     "affectedModules": [],
-    "type": "root"
+    "type": "root",
+    "declaredVersion": false
   },
-  ":packages:core": {
-    "name": "core",
-    "path": "packages/core",
-    "version": "1.2.3",
-    "affectedModules": [":packages:cli", ":packages:plugin-gradle"],
-    "type": "module"
+  ":packages:common": {
+    "name": "common",
+    "path": "packages/common",
+    "version": "2.3.1",
+    "affectedModules": [
+      ":packages:auth",
+      ":packages:api",
+      ":packages:web",
+      ":packages:mobile"
+    ],
+    "type": "module",
+    "declaredVersion": true
   },
-  ":packages:cli": {
-    "name": "cli",
-    "path": "packages/cli",
-    "version": "0.5.0",
+  ":packages:auth": {
+    "name": "auth",
+    "path": "packages/auth",
+    "version": "1.5.2",
+    "affectedModules": [
+      ":packages:api",
+      ":packages:web",
+      ":packages:mobile"
+    ],
+    "type": "module",
+    "declaredVersion": true
+  },
+  ":packages:api": {
+    "name": "api",
+    "path": "packages/api",
+    "version": "1.2.0",
+    "affectedModules": [
+      ":packages:web",
+      ":packages:mobile"
+    ],
+    "type": "module",
+    "declaredVersion": true
+  },
+  ":packages:web": {
+    "name": "web",
+    "path": "packages/web",
+    "version": "3.1.0",
     "affectedModules": [],
-    "type": "module"
+    "type": "module",
+    "declaredVersion": true
   },
-  ":packages:plugin-gradle": {
-    "name": "plugin-gradle",
-    "path": "packages/plugin-gradle",
-    "version": "0.4.0",
+  ":packages:mobile": {
+    "name": "mobile",
+    "path": "packages/mobile",
+    "version": "0.9.0",
     "affectedModules": [],
-    "type": "module"
+    "type": "module",
+    "declaredVersion": true
   }
 }
 ```
 
-Each key is the module's unique ID in Gradle-style notation: `:` is the root and nested paths become colon-separated segments (e.g., `:packages:core`). Exactly one module of type `root` is required.
+Each key is the module's unique ID in Gradle-style notation: `:` is the root and nested paths become colon-separated segments (e.g., `:packages:common`). Exactly one module of type `root` is required.
 
-In this example, we have the root plus three modules: `core`, `cli`, and `plugin-gradle`. The `core` module is a dependency for both `cli` and `plugin-gradle`, so it lists them in its `affectedModules` array.
+In this example, we have the root plus five modules. Each module's `affectedModules` array lists every module downstream of it: when `common` changes, `auth`, `api`, `web` and `mobile` are all affected; when `api` changes, only `web` and `mobile` are.
 
 ### Module Properties
 
@@ -77,8 +138,11 @@ In this example, we have the root plus three modules: `core`, `cli`, and `plugin
 | `version` | string | Current version of the module (semver) | No<sup>1</sup> |
 | `affectedModules` | array | Array of module identifiers this module affects | Yes |
 | `type` | string | Type of module (`root` or `module`) | Yes |
+| `declaredVersion` | boolean | Whether the version is explicitly declared in the module's build configuration (vs inherited or absent) | Yes<sup>2</sup> |
 
-<sup>1</sup> The `version` property is optional in the output from plugins and depends on the plugin's implementation.
+<sup>1</sup> The `version` property is optional in the output from plugins and depends on the plugin's implementation. When omitted, Versu treats the module as starting at `0.0.0`.
+
+<sup>2</sup> Modules with `declaredVersion: false` still take part in commit analysis and the dependency cascade, but Versu will not write a version to their build files or create release tags for them - like the root module in the example above, whose version lives only in its children.
 
 Additionally to these properties, plugins can include any other relevant information about the module as needed.
 
@@ -86,9 +150,11 @@ Additionally to these properties, plugins can include any other relevant informa
 
 Each module has its own version:
 
-- **core**: 2.3.1
-- **cli**: 1.5.2
-- **plugin-gradle**: 0.4.0
+- **common**: 2.3.1
+- **auth**: 1.5.2
+- **api**: 1.2.0
+- **web**: 3.1.0
+- **mobile**: 0.9.0
 
 When you run Versu:
 
@@ -102,111 +168,50 @@ When you run Versu:
 Versu uses Git to determine which commits affect which modules:
 
 ```text
-# Commit affecting core module
-packages/core/src/index.ts changed
-feat: add new export
+# Commit affecting common module
+packages/common/src/index.ts changed
+feat: add shared validation helper
 
-# Commit affecting cli module
-packages/cli/src/index.ts changed
-feat: add new command
+# Commit affecting web module
+packages/web/src/app.ts changed
+feat: add dashboard page
 
 # Commit affecting both
-packages/core/src/index.ts changed
-packages/cli/src/index.ts changed
-feat!: redesign API (breaking change)
+packages/common/src/index.ts changed
+packages/web/src/app.ts changed
+feat!: redesign session handling (breaking change)
 ```
 
 ## Dependency Cascade
 
 When a module changes, its dependents are automatically versioned:
 
-```text
-Module Dependency Graph:
-    core (v1.0.0)
-    /    \
-   /      \
- cli      plugin-gradle
-(v1.0.0)  (v1.0.0)
+```mermaid
+flowchart TD
+    common["common<br>(2.3.1)"] --> auth["auth<br>(1.5.2)"]
+    auth --> api["api<br>(1.2.0)"]
+    api --> web["web<br>(3.1.0)"]
+    api --> mobile["mobile<br>(0.9.0)"]
 ```
+
+Because dependencies chain, everything downstream of a changed module is affected - that is exactly what each module's `affectedModules` array lists.
 
 <!-- markdownlint-disable-next-line MD036 -->
-**Scenario: core is updated**
+**Scenario: `common` gets a new feature**
 
-- core 1.0.0 → 1.1.0 (new feature)
-- cli 1.0.0 → 1.0.1 (dependency updated, patch bump)
-- plugin-gradle 1.0.0 → 1.0.1 (dependency updated, patch bump)
+With the default cascade rules (dependents get the same bump level):
+
+- common 2.3.1 → 2.4.0 (minor, from the `feat` commit)
+- auth 1.5.2 → 1.6.0 (cascaded minor)
+- api 1.2.0 → 1.3.0 (cascaded minor)
+- web 3.1.0 → 3.2.0 (cascaded minor)
+- mobile 0.9.0 → 0.10.0 (cascaded minor)
 
 <!-- markdownlint-disable-next-line MD036 -->
-**Scenario: cli is updated**
+**Scenario: `web` gets a new feature**
 
-- cli 1.0.0 → 1.1.0 (new feature)
-- core and plugin-gradle: no change
-
-## Real-World Example
-
-```json
-{
-  ":": {
-    "name": "my-monorepo",
-    "path": ".",
-    "affectedModules": [],
-    "type": "root"
-  },
-  ":packages:common": {
-    "name": "common",
-    "path": "packages/common",
-    "version": "1.0.0",
-    "affectedModules": [
-      ":packages:auth",
-      ":packages:api",
-      ":packages:web",
-      ":packages:mobile"
-    ],
-    "type": "module"
-  },
-  ":packages:auth": {
-    "name": "auth",
-    "path": "packages/auth",
-    "version": "1.0.0",
-    "affectedModules": [":packages:api", ":packages:web", ":packages:mobile"],
-    "type": "module"
-  },
-  ":packages:api": {
-    "name": "api",
-    "path": "packages/api",
-    "version": "1.0.0",
-    "affectedModules": [":packages:web", ":packages:mobile"],
-    "type": "module"
-  },
-  ":packages:web": {
-    "name": "web",
-    "path": "packages/web",
-    "version": "1.0.0",
-    "affectedModules": [],
-    "type": "module"
-  },
-  ":packages:mobile": {
-    "name": "mobile",
-    "path": "packages/mobile",
-    "version": "1.0.0",
-    "affectedModules": [],
-    "type": "module"
-  }
-}
-```
-
-When `common` is updated, the cascade looks like:
-
-```text
-common (update)
-  ↓
-auth → api ↘
-  ↓         → web
-  ↓       ↙
-auth → mobile
-```
-
-All downstream modules get a patch version bump automatically.
+- web 3.1.0 → 3.2.0 (minor)
+- common, auth, api, mobile: no change (nothing depends on `web`)
 
 ## Best Practices
 
@@ -253,7 +258,7 @@ export default {
 
 :::
 
-On the example above when stable versioning is being used (i.e. not a pre-release), a major bump in a module will trigger a major bump in its dependents, a minor bump will trigger a minor bump and so on. You can customize this behavior as needed, for both stable and pre-release versions, to fit your project's requirements.
+On the example above when stable versioning is being used (i.e. not a pre-release), a major bump in a module will trigger a major bump in its dependents, a minor bump will trigger a minor bump and so on. This is what produced the cascaded minor bumps in the `common` scenario earlier. You can customize this behavior as needed, for both stable and pre-release versions, to fit your project's requirements.
 
 For more information regarding pre-release versioning refer to [Pre-release Versions](/guide/config/prerelease) section in the configuration guide.
 

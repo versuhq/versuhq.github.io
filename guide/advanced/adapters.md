@@ -49,7 +49,7 @@ Each key is a module ID in Gradle-style notation (`:` for the root, `:core`, `:l
 | `type` | ✅ | `root` for the top-level project, `module` for subprojects. Exactly one `root` is required. |
 | `affectedModules` | ✅ | Module IDs bumped in cascade when this module changes. |
 | `version` | | Current semantic version. Defaults to `0.0.0` when omitted. |
-| `declaredVersion` | | Whether the version is explicitly declared in build configuration. |
+| `declaredVersion` | ✅ | Whether the version is explicitly declared in build configuration. Modules where this is `false` are analyzed and cascaded, but get no version writes or release tags. |
 
 The manual adapter has the lowest precedence: it only activates when the file exists and no other installed adapter accepts the repository. You can also force it with `--adapter manual`.
 

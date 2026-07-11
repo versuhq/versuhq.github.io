@@ -72,3 +72,9 @@
 * {
   transition: background-color 0.3s ease;
 }
+
+/* Center Mermaid diagrams */
+.mermaid {
+  display: flex;
+  justify-content: center;
+}

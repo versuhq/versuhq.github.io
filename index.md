@@ -80,7 +80,7 @@ npm install -g @versu/cli
 npm install -g @versu/plugin-gradle
 
 # Run versioning in your project
-versu
+versu run
 
 # That's it! versu will:
 # ✓ Analyze your commits

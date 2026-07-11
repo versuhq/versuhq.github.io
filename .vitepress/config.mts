@@ -34,6 +34,11 @@ export default withMermaid(
 
     mermaid: {
       theme: "neutral",
+      flowchart: {
+        padding: 8,
+        nodeSpacing: 30,
+        rankSpacing: 28,
+      },
     },
 
     lastUpdated: true,
