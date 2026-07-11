@@ -83,4 +83,4 @@ Any npm package following the naming patterns above and default-exporting a `Plu
 
 ---
 
-Need help? Check the [FAQ](/examples/faq) or open an [issue](https://github.com/versuhq/versu/issues).
+Need help? Check the [FAQ](/faq) or open an [issue](https://github.com/versuhq/versu/issues).

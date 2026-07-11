@@ -3,7 +3,12 @@
 `@versu/core` re-exports the utility functions it uses internally so plugins and integrations can build on the same primitives. They are grouped below by domain.
 
 ```typescript
-import { parseSemVer, getAllTags, parseProperties, logger } from "@versu/core";
+import {
+  parseSemVer, 
+  getAllTags, 
+  parseProperties, 
+  logger 
+} from "@versu/core";
 ```
 
 ## Semver Utilities

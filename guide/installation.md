@@ -104,6 +104,6 @@ If `versu --version` doesn't work:
 
 If you need help:
 
-- Check the [FAQ](/examples/faq)
+- Check the [FAQ](/faq)
 - Open an [issue on GitHub](https://github.com/versuhq/versu/issues)
 - Read the [API documentation](/api/core)

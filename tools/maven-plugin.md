@@ -105,4 +105,4 @@ The Maven adapter supports snapshot versions. With the `--append-snapshot` CLI f
 
 ---
 
-Need help? Check the [FAQ](/examples/faq) or open an [issue](https://github.com/versuhq/plugin-maven/issues).
+Need help? Check the [FAQ](/faq) or open an [issue](https://github.com/versuhq/plugin-maven/issues).

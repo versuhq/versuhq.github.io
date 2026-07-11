@@ -26,7 +26,7 @@ versu run [path] [options]
 Running versioning for your project with the default settings is as simple as:
 
 ```bash
-versu
+versu run
 ```
 
 This will:
@@ -321,4 +321,4 @@ versu plugin uninstall @versu/plugin-gradle -g # Uninstall globally
 
 ---
 
-Need help? Check the [FAQ](/examples/faq) or open an [issue](https://github.com/versuhq/versu/issues).
+Need help? Check the [FAQ](/faq) or open an [issue](https://github.com/versuhq/versu/issues).

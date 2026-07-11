@@ -102,4 +102,4 @@ Specs without a concrete version are left untouched: `*`, `workspace:*`, `worksp
 
 ---
 
-Need help? Check the [FAQ](/examples/faq) or open an [issue](https://github.com/versuhq/plugin-node/issues).
+Need help? Check the [FAQ](/faq) or open an [issue](https://github.com/versuhq/plugin-node/issues).

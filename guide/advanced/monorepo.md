@@ -95,6 +95,11 @@ jobs:
         with:
           fetch-depth: 0 # Full history - required for commit analysis
 
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
       # Install the adapter plugin for your build system
       - name: Install Versu Node Plugin
         run: npm i -g @versu/plugin-node
@@ -127,4 +132,4 @@ A few practices that keep multi-module versioning predictable:
 
 ---
 
-Need help? Check the [FAQ](/examples/faq) or open an [issue](https://github.com/versuhq/versu/issues).
+Need help? Check the [FAQ](/faq) or open an [issue](https://github.com/versuhq/versu/issues).

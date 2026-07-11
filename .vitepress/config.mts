@@ -58,7 +58,15 @@ export default withMermaid(
             { text: "Plugins", link: "/tools/plugins" },
           ],
         },
-        { text: "Examples", link: "/examples/basic-setup" },
+        {
+          text: "Examples",
+          items: [
+            { text: "Basic Setup", link: "/examples/basic-setup" },
+            { text: "Monorepo Setup", link: "/examples/monorepo-setup" },
+            { text: "Quick Reference", link: "/examples/quick-reference" },
+          ],
+        },
+        { text: "FAQ", link: "/faq" },
       ],
 
       sidebar: {

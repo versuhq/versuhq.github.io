@@ -182,7 +182,7 @@ CHANGELOG.md          # Generated changelog
 - [Full Guide](/guide/introduction) - Complete documentation
 - [Configuration Reference](/guide/config/configuration-file) - All options
 - [Examples](/examples/basic-setup) - Real examples
-- [FAQ](/examples/faq) - Common questions
+- [FAQ](/faq) - Common questions
 
 ---
 

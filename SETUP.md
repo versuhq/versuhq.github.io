@@ -42,6 +42,7 @@ versuhq.github.io/
 │       ├── index.ts        # Theme setup
 │       └── style.css       # Custom styles
 ├── index.md                # Home page
+├── faq.md
 ├── guide/
 │   ├── introduction.md
 │   ├── installation.md
@@ -74,8 +75,7 @@ versuhq.github.io/
 ├── examples/
 │   ├── basic-setup.md
 │   ├── monorepo-setup.md
-│   ├── quick-reference.md
-│   └── faq.md
+│   └── quick-reference.md
 ├── package.json
 ├── .gitignore
 └── README.md

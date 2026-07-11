@@ -150,4 +150,4 @@ The Gradle adapter supports snapshot versions. With the `--append-snapshot` CLI 
 
 ---
 
-Need help? Check the [FAQ](/examples/faq) or open an [issue](https://github.com/versuhq/plugin-gradle/issues).
+Need help? Check the [FAQ](/faq) or open an [issue](https://github.com/versuhq/plugin-gradle/issues).
