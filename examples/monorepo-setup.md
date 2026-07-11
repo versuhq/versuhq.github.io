@@ -34,15 +34,13 @@ my-monorepo/
 
 ## Dependency Graph
 
-```text
-    common
-    /    \
-   /      \
- core    auth
-  |    /   |
-  |   /    |
-  |  /     |
- cli      web
+```mermaid
+flowchart TD
+    common --> core
+    common --> auth
+    core --> cli
+    auth --> cli
+    auth --> web
 ```
 
 ## Configuration
