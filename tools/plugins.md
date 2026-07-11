@@ -37,7 +37,7 @@ versu plugin list
 versu plugin uninstall @versu/plugin-node
 ```
 
-With the [GitHub Action](/tools/github-action), official plugins are already included - no separate installation needed.
+The [GitHub Action](/tools/github-action) ships only the core engine, so plugins need to be installed in the job before the action runs (e.g., `npm i -g @versu/plugin-gradle` as a workflow step) - locally in the checked-out workspace or globally, both are discovered.
 
 ## How Plugins Are Discovered
 

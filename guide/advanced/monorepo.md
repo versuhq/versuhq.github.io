@@ -95,6 +95,10 @@ jobs:
         with:
           fetch-depth: 0 # Full history - required for commit analysis
 
+      # Install the adapter plugin for your build system
+      - name: Install Versu Node Plugin
+        run: npm i -g @versu/plugin-node
+
       - name: Version modules
         uses: versuhq/versu@v3
 ```
@@ -102,7 +106,7 @@ jobs:
 Key points for monorepos:
 
 - **`fetch-depth: 0` is required** - Versu needs the full history and tags to find each module's baseline.
-- **Official adapter plugins are bundled** with the GitHub Action; with the CLI, install the plugin in the job first.
+- **Install the adapter plugin in the job first** - the GitHub Action ships only the core engine (with its built-in [manual adapter](/guide/advanced/adapters#the-manual-adapter)); adapter plugins are discovered in the workspace or global `node_modules`, with the Action and the CLI alike.
 - **One run handles all modules** - discovery, bumps, cascade, changelogs, tags and pushes happen in a single `versu run`.
 - For pre-release pipelines (e.g., on feature branches), combine `--prerelease-mode` with `--timestamp-versions` to get unique, sortable versions without tag collisions - see [Pre-release Versions](/guide/config/prerelease).
 
