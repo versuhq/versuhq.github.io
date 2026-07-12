@@ -80,6 +80,10 @@ Versu is an intelligent versioning automation tool that eliminates manual versio
 
 This documentation covers Versu v3.0.0 and above.
 
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
 ---
 
 Ready to get started? [Begin with the Introduction →](/guide/introduction)
