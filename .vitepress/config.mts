@@ -16,7 +16,7 @@ export default withMermaid(
     lang: "en-US",
 
     head: [
-      ["link", { rel: "icon", href: `${base}/favicon.ico` }],
+      ["link", { rel: "icon", href: `${base}favicon.ico` }],
       ["meta", { name: "theme-color", content: "#3c3c3d" }],
       ["meta", { name: "og:type", content: "website" }],
       ["meta", { name: "og:locale", content: "en" }],
