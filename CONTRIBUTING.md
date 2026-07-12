@@ -94,8 +94,7 @@ So you want to contribute some code! That's great!
 This project uses a fork and pull collaboration model for managing contributions,
 so [read up on how to fork a GitHub project and file a PR][how-to-fork-and-pr] if you've never done it before.
 
-Commit messages follow the standard [conventional commits][conventional-commits] and our [Changelog](CHANGELOG.md)
-uses [Keep a changelog format][keep-a-changelog]. For branching and release strategy we follow GitHub Flow workflow as
+Commit messages follow the standard [conventional commits][conventional-commits]. For branching and release strategy we follow GitHub Flow workflow as
 closely as possible.
 
 In order to setup the project locally please follow our [Readme](README.md) and you should be ready to go!
@@ -115,7 +114,6 @@ To contribute documentation:
 - Edit or add any relevant documentation following the development guidelines.
 - Make sure your changes are formatted correctly and consistently with the rest of the documentation.
 - Re-read what you wrote, and run a spellchecker on it to make sure you didn't miss anything.
-- Update the [Changelog](CHANGELOG.md) with the required changes.
 - Write clear, concise commit message(s) using [conventional commits format][conventional-commits]. Documentation
   commits should use `docs(<component>): <message>`.
 - Open a pull request with your changes [here][pull-requests].
@@ -154,10 +152,6 @@ To contribute code:
 - Open a pull request with your changes [here][pull-requests].
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is
   the number of the issue you're fixing.
-
-**Note**: There is no need to update the Changelog for code contributions. Just make sure to follow
-the [conventional commits format][conventional-commits] for your commit messages, and the Changelog will be updated
-automatically when your contribution is released.
 
 Once you've filed the PR:
 
@@ -278,7 +272,6 @@ Some notes:
 This guide was adapted from [weallcontribute] `CONTRIBUTING.md`.
 
 [conventional-commits]: https://www.conventionalcommits.org/
-[keep-a-changelog]: https://keepachangelog.com/
 [issue-tracker]: https://github.com/versuhq/versu/issues
 [pull-requests]: https://github.com/versuhq/versu/pulls
 [support-open-issues]: https://github.com/versuhq/versu/issues?q=is%3Aopen+is%3Aissue+label%3Asupport

@@ -15,6 +15,9 @@ export default withMermaid(
       "Intelligent Versioning Automation - Compose the epic of your code, one release at a time.",
     lang: "en-US",
 
+    // Repo meta files for GitHub, not site content
+    srcExclude: ["README.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SETUP.md"],
+
     head: [
       ["link", { rel: "icon", href: `${base}favicon.ico` }],
       ["meta", { name: "theme-color", content: "#3c3c3d" }],
