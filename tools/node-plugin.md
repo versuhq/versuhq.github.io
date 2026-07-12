@@ -24,7 +24,7 @@ npm install -g @versu/cli @versu/plugin-node
 
 :::
 
-With the [GitHub Action](/tools/github-action), the plugin is already included - no separate installation needed.
+With the [GitHub Action](/tools/github-action), the plugin still needs to be installed in the job before the action runs (e.g., `npm i -g @versu/plugin-node` as a workflow step) - the action ships only the core engine.
 
 ## Usage
 
