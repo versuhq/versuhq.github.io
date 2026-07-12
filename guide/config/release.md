@@ -202,7 +202,7 @@ The typical use for release notes is feeding them into GitHub releases. Combinin
 
 - name: Create GitHub releases
   if: steps.versu.outputs.bumped == 'true'
-  uses: actions/github-script@v8
+  uses: actions/github-script@v9
   env:
     CREATED_TAGS: ${{ steps.versu.outputs.created-tags }}
     NOTES_PATHS: ${{ steps.versu.outputs.release-notes-paths }}

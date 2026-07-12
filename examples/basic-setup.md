@@ -89,9 +89,18 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0 # Full history - required for commit analysis
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      # Install the adapter plugin for your build system
+      - name: Install Versu Node Plugin
+        run: npm i -g @versu/plugin-node
 
       - name: Version project
         uses: versuhq/versu@v3

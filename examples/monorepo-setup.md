@@ -1,6 +1,6 @@
 # Monorepo Setup Example
 
-A complete example of setting up Versu for a monorepo with multiple interdependent modules.
+A complete example of setting up Versu for a monorepo with multiple interdependent modules. It uses the running example from [Multi-Module Projects](/guide/concepts/multi-module): the `my-monorepo` workspace with the `common`, `auth`, `api`, `web` and `mobile` modules.
 
 ## Project Structure
 
@@ -11,19 +11,19 @@ my-monorepo/
 │   │   ├── src/
 │   │   ├── package.json
 │   │   └── CHANGELOG.md
-│   ├── core/
-│   │   ├── src/
-│   │   ├── package.json
-│   │   └── CHANGELOG.md
-│   ├── cli/
-│   │   ├── src/
-│   │   ├── package.json
-│   │   └── CHANGELOG.md
 │   ├── auth/
 │   │   ├── src/
 │   │   ├── package.json
 │   │   └── CHANGELOG.md
-│   └── web/
+│   ├── api/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── CHANGELOG.md
+│   ├── web/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── CHANGELOG.md
+│   └── mobile/
 │       ├── src/
 │       ├── package.json
 │       └── CHANGELOG.md
@@ -36,11 +36,10 @@ my-monorepo/
 
 ```mermaid
 flowchart TD
-    common --> core
-    common --> auth
-    core --> cli
-    auth --> cli
-    auth --> web
+    common["common<br>(2.3.1)"] --> auth["auth<br>(1.5.2)"]
+    auth --> api["api<br>(1.2.0)"]
+    api --> web["web<br>(3.1.0)"]
+    api --> mobile["mobile<br>(0.9.0)"]
 ```
 
 ## Configuration
@@ -55,14 +54,14 @@ Declare the workspace members in the root `package.json` - the Node adapter deri
 }
 ```
 
-The dependency graph shown above comes from regular dependency declarations between packages, e.g. in `packages/core/package.json`:
+The dependency graph shown above comes from regular dependency declarations between packages, e.g. in `packages/auth/package.json`:
 
 ```json
 {
-  "name": "@my-org/core",
-  "version": "1.0.0",
+  "name": "@my-org/auth",
+  "version": "1.5.2",
   "dependencies": {
-    "@my-org/common": "^1.0.0"
+    "@my-org/common": "^2.3.1"
   }
 }
 ```
@@ -107,7 +106,7 @@ touch versu.config.js
 npx versu run --dry-run
 ```
 
-Check the log output: module discovery should list all workspace packages (`:`, `:packages:common`, `:packages:core`, ...), and the calculated bumps should reflect your commits and the cascade rules.
+Check the log output: module discovery should list all workspace packages (`:`, `:packages:common`, `:packages:auth`, ...), and the calculated bumps should reflect your commits and the cascade rules.
 
 ### 4. Release
 
@@ -117,11 +116,13 @@ npx versu run
 
 For a `feat` commit touching `packages/common`, one run will:
 
-1. Bump `common` with a minor bump (e.g., `1.0.0` → `1.1.0`)
-2. Cascade a patch bump to its dependents `core` and `auth` - and transitively to `cli` and `web`
-3. Update every affected `package.json`, including internal dependency ranges (`^1.0.0` → `^1.1.0`)
+1. Bump `common` with a minor bump (`2.3.1` → `2.4.0`)
+2. Cascade a patch bump to its dependent `auth` (`1.5.2` → `1.5.3`) - and transitively to `api` (`1.2.0` → `1.2.1`), `web` (`3.1.0` → `3.1.1`) and `mobile` (`0.9.0` → `0.9.1`)
+3. Update every affected `package.json`, including internal dependency ranges (`^2.3.1` → `^2.4.0`)
 4. Write a `CHANGELOG.md` per changed module plus the root changelog
-5. Commit, tag each changed module (`@my-org/common@1.1.0`, `@my-org/core@1.0.1`, ...) and push
+5. Commit, tag each changed module (`@my-org/common@2.4.0`, `@my-org/auth@1.5.3`, ...) and push
+
+Note the patch cascades come from this example's tuned `cascadeRules` - with the default same-level rules, the dependents would all receive minor bumps instead, as shown in [Dependency Cascade](/guide/concepts/dependency-cascade).
 
 ::: tip
 Commits are attributed to modules by path: a commit that only touches `packages/common` bumps only `common` (plus its cascade). Keep commits scoped to one package when you can.
