@@ -15,11 +15,11 @@
   "devDependencies": {
     "@types/node": "^26.0.0",
     "lightbox3": "^1.1.0",
-    "mermaid": "^11.15.0",
+    "mermaid": "^11.16.0",
     "typescript": "^6.0.3",
     "vite": "^5.4.21",
     "vitepress": "^1.6.4",
-    "vitepress-plugin-llms": "^1.13.0",
-    "vitepress-plugin-mermaid": "^2.0.17"
+    "vitepress-mermaid-viewer": "^0.4.0",
+    "vitepress-plugin-llms": "^1.13.0"
   }
 }

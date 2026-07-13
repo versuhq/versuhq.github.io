@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress";
-import { withMermaid } from "vitepress-plugin-mermaid";
+import { withMermaid } from "vitepress-mermaid-viewer";
 import llmstxt, {
   copyOrDownloadAsMarkdownButtons,
 } from "vitepress-plugin-llms";
@@ -16,7 +16,12 @@ export default withMermaid(
     lang: "en-US",
 
     // Repo meta files for GitHub, not site content
-    srcExclude: ["README.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SETUP.md"],
+    srcExclude: [
+      "README.md",
+      "CONTRIBUTING.md",
+      "CODE_OF_CONDUCT.md",
+      "SETUP.md",
+    ],
 
     head: [
       ["link", { rel: "icon", href: `${base}favicon.ico` }],
